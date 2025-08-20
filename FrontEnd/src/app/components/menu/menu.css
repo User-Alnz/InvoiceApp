@@ -1,0 +1,56 @@
+.appMenu
+{
+    height: 100vh;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1d293d;
+}
+
+.appMenuListOptions
+{
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap : 5px;
+
+    padding: 20px 10px;
+    margin-top: 50px;
+
+    background: rgba(255, 255, 255, 0.007);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.appMenuListOptions button:hover
+{
+    background: #475569;
+}
+
+.appMenuListOptions button:active,
+.appMenuListOptions button:focus
+{
+    background: #059669;
+}
+
+.appMenuListOptions button 
+{
+    padding: 8px;
+    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    gap : 15px;
+    border-radius: 8px;
+    background: none;
+    color: #f1f5f9;
+    border: 0;
+}
+
+.appMenuListOptions img
+{
+    width: 25px;
+}

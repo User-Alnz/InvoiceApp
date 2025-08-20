@@ -1,0 +1,15 @@
+<section class="appMenu">
+
+    <div class="appMenuListOptions">
+
+        @for(item of buttons; track item.label)
+        {
+            <button type="button">
+                <img src={{item.icon}} alt="icon pour acceder au menu {{item.label}}">
+                {{item.label}}
+            </button>
+        }
+
+    </div>
+
+</section>
