@@ -1,13 +1,3 @@
-.appMenu
-{
-    height: 100vh;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #1d293d;
-}
-
 .appMenuListOptions
 {
     min-width: 250px;
