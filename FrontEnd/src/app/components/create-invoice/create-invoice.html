@@ -1,0 +1,161 @@
+<form  class="createInvoiceFormContainer" action="">
+
+    <h1>Créer une facture</h1>
+
+    <div class="createInvoiceCard">
+
+        <p>Détails de la facture</p>
+
+        <div class="wrapInvoiceDetails">
+
+            <label>
+                Numéro de facture
+                <input type="text" name="invoice-number" value="F20XX-00000X">
+            </label>
+            
+
+            <label>
+                Date de facturation 
+                <input type="date" name="date-de-facturation">
+            </label>
+
+            <label>
+                Date d'échéance
+                <input type="date" name="date-d-échéance">
+            </label>
+
+        </div>
+
+    </div>
+    
+    <div class="align-bothInvoiceCard-horizontal">
+
+        <div class="createInvoiceCard">
+
+            <p>Information client</p>
+
+            <div class="wrapInvoiceContact">
+                <label>
+                    Nom du client
+                    <input type="text" name="nom-du-client">
+                </label>
+
+                <label>
+                    Adresse
+                    <input type="text" name="adresse-client">
+                </label>
+
+                <label>
+                    Code postale
+                    <input type="text" name="code-postale-client">
+                </label>
+
+                <label>
+                    Email
+                    <input type="text" name="email-client">
+                </label>
+
+                <label>
+                    Téléphone
+                    <input type="text" name="telephone-client">
+                </label>
+            </div>
+            
+
+
+
+        </div>
+
+        <div class="createInvoiceCard">
+
+            <p>Information entreprise</p>
+
+            <div class="wrapInvoiceContact">
+
+                <label>
+                    Nom de votre entreprise
+                    <input type="text" name="nom-entreprise">
+                </label>
+
+                <label>
+                    Adresse
+                    <input type="text" name="adresse-entreprise">
+                </label>
+
+                <label>
+                    Code postale
+                    <input type="text" name="code-postale-entreprise">
+                </label>
+                
+                <label>
+                    Email
+                    <input type="text" name="email-entreprise">
+                </label>
+
+                <label>
+                    Téléphone
+                    <input type="text" name="telephone-entreprise">
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="createInvoiceCard">
+
+        <p>Produits et services</p>
+
+        <div class="wrapInvoiceProductAndServicesTitle">
+
+            <p>Description</p> <p>Prix unit HT</p> <p>Qt.</p> <p>Total HT</p> <p>TVA %</p> <p></p>
+
+        </div>
+
+        <div class="wrapInvoiceProductAndServices">
+
+            <label for ="item-description">
+                <input type="text" name="item-description">
+            </label>
+
+            <label for ="item-prix-unitaire">
+                <input type="text" name="item-prix-unitaire">
+            </label>
+
+            <label for ="item-quantité">
+                <input type="text" name="item-quantité">
+            </label>
+
+            <label for="item-total-hors-taxe">
+                <input type="text" name="item-total-hors-taxe">
+            </label>
+
+            <label for="item-TVA">
+                <input type="text" name="item-TVA">
+            </label>
+
+            <button> </button>
+
+        </div>
+        
+        <button class="addItemButton">+ Ajouter</button>
+        
+    </div>
+
+    <div class="createInvoiceCard">
+
+        <div class="wrapInvoicePreviewTotal">
+            <div><p>Total-HT</p> <p>€0.00</p></div>
+            <div><p>Taxes</p> <p>€0.00</p></div>
+            <div><p>Total</p><p>€0.00</p></div>
+        </div>
+
+    </div>
+
+    <div class="wapFormbuttonSubmit">
+        <button class="btn">Editer la facture</button>
+    </div>
+
+
+</form>

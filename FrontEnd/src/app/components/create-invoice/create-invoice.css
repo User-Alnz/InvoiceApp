@@ -1,0 +1,167 @@
+.createInvoiceFormContainer
+{
+    padding: 50px 30px;
+    display: flex;
+    gap: 25px;
+    flex-direction: column;
+}
+
+.createInvoiceFormContainer input
+{
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    min-height: 8px;
+    min-height: 30px;
+    margin-top: 4px;
+    box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.1);
+}
+.createInvoiceFormContainer input:focus,
+.createInvoiceFormContainer input:active
+{
+    border: 3px solid;
+    border-color:#059669;
+    outline: none;
+}
+
+/* Main card style -- Start */
+
+.createInvoiceCard
+{
+    display: flex;
+    flex-direction: column;
+    gap : 10px;
+
+    color: #475569;
+    font-weight: 600;
+    background-color:  #F1F5F9;
+    border-radius:  4px;
+    padding: 24px 0px;
+
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+.createInvoiceCard > *:not(.addItemButton)
+{
+    padding: 0 24px;
+}
+
+/* Main card style -- End */
+
+.align-bothInvoiceCard-horizontal
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap : 30px;
+}
+
+.wrapInvoiceDetails
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+.wrapInvoiceDetails > label
+{
+    display: flex;
+    flex-direction: column;
+}
+.wrapInvoiceContact > label
+{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+
+.wrapInvoiceProductAndServicesTitle,
+.wrapInvoiceProductAndServices
+{
+    display: flex;
+}
+.wrapInvoiceProductAndServicesTitle p:first-child
+{
+    flex: 6 3;
+}
+.wrapInvoiceProductAndServicesTitle p
+{
+    flex: 3 3;
+}
+.wrapInvoiceProductAndServicesTitle p:last-child
+{
+    flex: 1;
+}
+.wrapInvoiceProductAndServices label:first-child
+{
+    flex: 6 3;
+}
+.wrapInvoiceProductAndServices label
+{
+    flex: 3 3;
+}
+
+
+.wrapInvoiceProductAndServices label:nth-child(1) > input
+{ 
+    width: 80%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+}
+.wrapInvoiceProductAndServices input
+{ 
+    width: 50%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+}
+
+
+.wrapInvoiceProductAndServices button
+{
+    flex: 1;
+    background: url('/delete.png') no-repeat center;
+    background-size: contain;
+    border: 0;
+    border-radius: 3px;
+    width: 24px;
+    height: 27px;
+    align-self: center;
+    cursor: pointer;
+}
+.wrapInvoiceProductAndServices button:hover
+{
+    background: url('/delete_white.png') no-repeat center;
+    background-size: contain;
+    width: 24px;
+    height: 27px;
+    background-color: #059669;
+}
+
+
+.addItemButton
+{
+    margin: 24px 24px 0 24px;
+    padding: 5px;
+    box-shadow: 0 0 0 1px #4755691f;
+    border: none;
+    border-radius: 3px;
+    background-color: transparent;
+}
+.addItemButton:active,
+.addItemButton:hover
+{
+    color: #fff;
+    background: #059669;
+}
+
+.wrapInvoicePreviewTotal
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+.wapFormbuttonSubmit
+{
+    display: flex;
+    justify-content: flex-end;   
+}
