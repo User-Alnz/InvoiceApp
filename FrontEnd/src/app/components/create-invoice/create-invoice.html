@@ -1,4 +1,4 @@
-<form  class="createInvoiceFormContainer" action="">
+<form  class="createInvoiceFormContainer" [formGroup]="invoiceForm"  (ngSubmit)="onSubmit()">
 
     <h1>Créer une facture</h1>
 
@@ -10,18 +10,17 @@
 
             <label>
                 Numéro de facture
-                <input type="text" name="invoice-number" value="F20XX-00000X">
+                <input type="text" formControlName="invoiceNumber" name="invoice-number" placeholder="F20XX-00000X">
             </label>
             
-
             <label>
                 Date de facturation 
-                <input type="date" name="date-de-facturation">
+                <input type="date" formControlName="invoiceDate" name="date-de-facturation">
             </label>
 
             <label>
                 Date d'échéance
-                <input type="date" name="date-d-échéance">
+                <input type="date" formControlName="invoiceDueDate" name="date-d-échéance">
             </label>
 
         </div>
@@ -37,27 +36,27 @@
             <div class="wrapInvoiceContact">
                 <label>
                     Nom du client
-                    <input type="text" name="nom-du-client">
+                    <input type="text" formControlName="clientName" name="nom-du-client">
                 </label>
 
                 <label>
                     Adresse
-                    <input type="text" name="adresse-client">
+                    <input type="text" formControlName="clientAdress" name="adresse-client">
                 </label>
 
                 <label>
                     Code postale
-                    <input type="text" name="code-postale-client">
+                    <input type="number" formControlName="clientPostalCode" name="code-postale-client">
                 </label>
 
                 <label>
                     Email
-                    <input type="text" name="email-client">
+                    <input type="text" formControlName="clientEmail" name="email-client">
                 </label>
 
                 <label>
                     Téléphone
-                    <input type="text" name="telephone-client">
+                    <input type="text" formControlName="clientPhone" name="telephone-client">
                 </label>
             </div>
             
@@ -74,36 +73,36 @@
 
                 <label>
                     Nom de votre entreprise
-                    <input type="text" name="nom-entreprise">
+                    <input type="text" formControlName="companyName" name="nom-entreprise">
                 </label>
 
                 <label>
                     Adresse
-                    <input type="text" name="adresse-entreprise">
+                    <input type="text" formControlName="companyAdress" name="adresse-entreprise">
                 </label>
 
                 <label>
                     Code postale
-                    <input type="text" name="code-postale-entreprise">
+                    <input type="number" formControlName="companyPostalCode" name="code-postale-entreprise">
                 </label>
                 
                 <label>
                     Email
-                    <input type="text" name="email-entreprise">
+                    <input type="text" formControlName="companyEmail" name="email-entreprise">
                 </label>
 
                 <label>
                     Téléphone
-                    <input type="text" name="telephone-entreprise">
+                    <input type="text" formControlName="companyPhone" name="telephone-entreprise">
                 </label>
-
+                
             </div>
 
         </div>
 
     </div>
 
-    <div class="createInvoiceCard">
+    <div class="createInvoiceCard" formArrayName="items">
 
         <p>Produits et services</p>
 
@@ -113,48 +112,52 @@
 
         </div>
 
-        <div class="wrapInvoiceProductAndServices">
+        @for(item of items.controls; let idx = $index; track $index)
+        {
+            <div class="wrapInvoiceProductAndServices"
+            [formGroupName]="idx">
 
-            <label for ="item-description">
-                <input type="text" name="item-description">
-            </label>
+                <label for ="item-description">
+                    <input type="text" formControlName="itemDescription" name="item-description" placeholder="nom du produit ou service">
+                </label>
 
-            <label for ="item-prix-unitaire">
-                <input type="text" name="item-prix-unitaire">
-            </label>
+                <label for ="item-prix-unitaire">
+                    <input type="number" formControlName="itemPrice" name="item-prix-unitaire">
+                </label>
 
-            <label for ="item-quantité">
-                <input type="text" name="item-quantité">
-            </label>
+                <label for ="item-quantité">
+                    <input type="number" formControlName="itemQuantity" name="item-quantité">
+                </label>
 
-            <label for="item-total-hors-taxe">
-                <input type="text" name="item-total-hors-taxe">
-            </label>
+                <label for="item-total-hors-taxe">
+                    <input readonly type="number" formControlName="itemHT" name="item-total-hors-taxe">
+                </label>
 
-            <label for="item-TVA">
-                <input type="text" name="item-TVA">
-            </label>
+                <label for="item-TVA">
+                    <input type="number" formControlName="itemTVA" name="item-TVA">
+                </label>
 
-            <button> </button>
+                <button type="button" (click)="removeItem(idx)"></button>
 
-        </div>
+            </div>
+        }
         
-        <button class="addItemButton">+ Ajouter</button>
+        <button class="addItemButton" type="button" (click)="addItem()">+ Ajouter</button>
         
     </div>
 
     <div class="createInvoiceCard">
 
         <div class="wrapInvoicePreviewTotal">
-            <div><p>Total-HT</p> <p>€0.00</p></div>
-            <div><p>Taxes</p> <p>€0.00</p></div>
-            <div><p>Total</p><p>€0.00</p></div>
+            <div><p>Total-HT</p> <p>{{ workoutTotal('HT') | number:'1.2-2' }}</p></div>
+            <div><p>Taxes</p> <p>{{ workoutTotal('TVA') | number:'1.2-2' }} </p></div>
+            <div><p>Total</p><p>{{ workoutTotal('Total') | number:'1.2-2' }} </p></div>
         </div>
 
     </div>
 
     <div class="wapFormbuttonSubmit">
-        <button class="btn">Editer la facture</button>
+        <button class="btn" type="submit">Editer la facture</button>
     </div>
 
 
