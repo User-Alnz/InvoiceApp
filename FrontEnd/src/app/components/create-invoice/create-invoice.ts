@@ -40,15 +40,28 @@ export class CreateInvoice {
 
   createNewItemEntry(): FormGroup
   {
-    return this.formConrolsOfInvoiceForm.group(
+    const newItemEntry = this.formConrolsOfInvoiceForm.group(
       {
         itemDescription : ['', Validators.required],
         itemPrice : [0, [Validators.required, Validators.min(0)]],
         itemQuantity : [1, [Validators.required, Validators.min(1)]],
-        itemHT : [0, [Validators.required, Validators.min(0)]],
+        itemHT : [0],
         itemTVA : [0, [Validators.required, Validators.min(0)]],
       }
-    )
+    );
+
+    // attach obsrvables to values changes & compute itemHT over user input
+    newItemEntry.valueChanges.subscribe( item =>
+      {
+        const price = item.itemPrice || 0;
+        const quantity = item.itemQuantity || 0;
+        const HTresult =  price * quantity;
+
+        newItemEntry.get('itemHT')?.setValue(HTresult, { emitEvent: false });
+      }
+    );
+
+    return newItemEntry;
   }
 
   //This is used for looping through invoiceForm.items[] in html.

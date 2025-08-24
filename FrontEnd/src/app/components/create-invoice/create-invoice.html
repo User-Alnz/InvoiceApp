@@ -149,9 +149,9 @@
     <div class="createInvoiceCard">
 
         <div class="wrapInvoicePreviewTotal">
-            <div><p>Total-HT</p> <p>{{ workoutTotal('HT') | number:'1.2-2' }}</p></div>
-            <div><p>Taxes</p> <p>{{ workoutTotal('TVA') | number:'1.2-2' }} </p></div>
-            <div><p>Total</p><p>{{ workoutTotal('Total') | number:'1.2-2' }} </p></div>
+            <div><p>Total-HT</p> <p>{{ workoutTotal('HT') | currency:'EUR':'symbol':'1.2-2' }}</p></div>
+            <div><p>Taxes</p> <p>{{ workoutTotal('TVA') | currency:'EUR':'symbol':'1.2-2' }} </p></div>
+            <div><p>Total</p><p>{{ workoutTotal('Total') | currency:'EUR':'symbol':'1.2-2' }} </p></div>
         </div>
 
     </div>
