@@ -2,9 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 
+import { ErrorMessageOnInputs } from '../error-message-on-inputs/error-message-on-inputs';
+import { CustomedValidators } from '@utils/validators/form.inputs.validator';
+
+
 @Component({
   selector: 'app-create-invoice',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, ErrorMessageOnInputs],
   templateUrl: './create-invoice.html',
   styleUrl: './create-invoice.css'
 })
@@ -17,21 +21,21 @@ export class CreateInvoice {
   {
     this.invoiceForm = this.formConrolsOfInvoiceForm.group(
     {
-      invoiceNumber: ['', [Validators.required, Validators.pattern(/^F\d{4,}-\d+$/)]],// pattern F0000-00000
+      invoiceNumber: ['', [Validators.required, CustomedValidators.invoicePattern()]],// pattern F0000-00000
       invoiceDate : ['', Validators.required],
       invoiceDueDate : ['', Validators.required],
 
       clientName : ['', Validators.required],
       clientAdress : ['', Validators.required],
-      clientPostalCode : ['', [Validators.required, Validators.pattern(/^\d{5}$/)]], //pattern 5 digits
-      clientEmail : ['', [Validators.required, Validators.email]],
-      clientPhone : ['', [Validators.required, Validators.pattern(/^(\+33|0)[1-9](\d{2}){4}$/)]], //pattern french format
+      clientPostalCode : ['', [Validators.required, CustomedValidators.postalCode()]], //pattern 5 digits
+      clientEmail : ['', [Validators.required, CustomedValidators.email()]],//email pattern
+      clientPhone : ['', [Validators.required, CustomedValidators.phone()]],
 
       companyName : ['', Validators.required],
       companyAdress : ['', Validators.required],
-      companyPostalCode : ['', [Validators.required, Validators.pattern(/^\d{5}$/)]],
-      companyEmail : ['', [Validators.required, Validators.email]],
-      companyPhone : ['', [Validators.required, Validators.pattern(/^(\+33|0)[1-9](\d{2}){4}$/)]],
+      companyPostalCode : ['', [Validators.required, CustomedValidators.postalCode()]],
+      companyEmail : ['', [Validators.required, CustomedValidators.email()]],
+      companyPhone : ['', [Validators.required, CustomedValidators.phone()]],
 
       items : this.formConrolsOfInvoiceForm.array([this.createNewItemEntry()])
     });
@@ -62,6 +66,11 @@ export class CreateInvoice {
     );
 
     return newItemEntry;
+  }
+
+  get invoiceFormEntries()
+  {
+    return this.invoiceForm.controls;
   }
 
   //This is used for looping through invoiceForm.items[] in html.

@@ -8,19 +8,22 @@
 
         <div class="wrapInvoiceDetails">
 
-            <label>
+            <label for="numéro-de-facture">
                 Numéro de facture
-                <input type="text" formControlName="invoiceNumber" name="invoice-number" placeholder="F20XX-00000X">
+                <input type="text" formControlName="invoiceNumber" name="numéro-de-facture" placeholder="F20XX-00000X">
+                <app-error-message-on-inputs [control]="invoiceFormEntries['invoiceNumber']"></app-error-message-on-inputs>
             </label>
             
             <label>
                 Date de facturation 
                 <input type="date" formControlName="invoiceDate" name="date-de-facturation">
+                <app-error-message-on-inputs [control]="invoiceFormEntries['invoiceDate']"></app-error-message-on-inputs>
             </label>
 
             <label>
                 Date d'échéance
                 <input type="date" formControlName="invoiceDueDate" name="date-d-échéance">
+                <app-error-message-on-inputs [control]="invoiceFormEntries['invoiceDueDate']"></app-error-message-on-inputs>
             </label>
 
         </div>
@@ -38,26 +41,31 @@
                     Nom du client
                     <input type="text" formControlName="clientName" name="nom-du-client">
                 </label>
+                <app-error-message-on-inputs [control]="invoiceFormEntries['clientName']"></app-error-message-on-inputs>
 
                 <label>
                     Adresse
                     <input type="text" formControlName="clientAdress" name="adresse-client">
                 </label>
+                <app-error-message-on-inputs [control]="invoiceFormEntries['clientAdress']"></app-error-message-on-inputs>
 
                 <label>
                     Code postale
                     <input type="number" formControlName="clientPostalCode" name="code-postale-client">
                 </label>
+                <app-error-message-on-inputs [control]="invoiceFormEntries['clientPostalCode']"></app-error-message-on-inputs>
 
                 <label>
                     Email
                     <input type="text" formControlName="clientEmail" name="email-client">
                 </label>
+                <app-error-message-on-inputs [control]="invoiceFormEntries['clientEmail']"></app-error-message-on-inputs>
 
                 <label>
                     Téléphone
                     <input type="text" formControlName="clientPhone" name="telephone-client">
                 </label>
+                <app-error-message-on-inputs [control]="invoiceFormEntries['clientPhone']"></app-error-message-on-inputs>
             </div>
             
 
@@ -75,26 +83,31 @@
                     Nom de votre entreprise
                     <input type="text" formControlName="companyName" name="nom-entreprise">
                 </label>
+                <app-error-message-on-inputs [control]="invoiceFormEntries['companyName']"></app-error-message-on-inputs>
 
                 <label>
                     Adresse
                     <input type="text" formControlName="companyAdress" name="adresse-entreprise">
                 </label>
+                <app-error-message-on-inputs [control]="invoiceFormEntries['companyAdress']"></app-error-message-on-inputs>
 
                 <label>
                     Code postale
                     <input type="number" formControlName="companyPostalCode" name="code-postale-entreprise">
                 </label>
-                
+                <app-error-message-on-inputs [control]="invoiceFormEntries['companyPostalCode']"></app-error-message-on-inputs>
+
                 <label>
                     Email
                     <input type="text" formControlName="companyEmail" name="email-entreprise">
                 </label>
+                <app-error-message-on-inputs [control]="invoiceFormEntries['companyEmail']"></app-error-message-on-inputs>
 
                 <label>
                     Téléphone
                     <input type="text" formControlName="companyPhone" name="telephone-entreprise">
                 </label>
+                <app-error-message-on-inputs [control]="invoiceFormEntries['companyPhone']"></app-error-message-on-inputs>
                 
             </div>
 
@@ -119,14 +132,18 @@
 
                 <label for ="item-description">
                     <input type="text" formControlName="itemDescription" name="item-description" placeholder="nom du produit ou service">
+                    <app-error-message-on-inputs [control]="item.get('itemDescription')!"></app-error-message-on-inputs>
                 </label>
+                
 
                 <label for ="item-prix-unitaire">
                     <input type="number" formControlName="itemPrice" name="item-prix-unitaire">
+                    <app-error-message-on-inputs [control]="item.get('itemPrice')!"></app-error-message-on-inputs>
                 </label>
 
                 <label for ="item-quantité">
                     <input type="number" formControlName="itemQuantity" name="item-quantité">
+                    <app-error-message-on-inputs [control]="item.get('itemQuantity')!"></app-error-message-on-inputs>
                 </label>
 
                 <label for="item-total-hors-taxe">
@@ -135,6 +152,7 @@
 
                 <label for="item-TVA">
                     <input type="number" formControlName="itemTVA" name="item-TVA">
+                    <app-error-message-on-inputs [control]="item.get('itemTVA')!"></app-error-message-on-inputs>
                 </label>
 
                 <button type="button" (click)="removeItem(idx)"></button>
