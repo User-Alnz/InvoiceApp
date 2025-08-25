@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import './_buttons.css';
 @import './_inputs.css';
+@import './_invalid_inputs.css';
 
 * {
   margin: 0;
