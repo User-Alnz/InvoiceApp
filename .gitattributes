@@ -7,3 +7,13 @@
 # Shell scripts → LF
 *.sh text eol=lf
 mvnw text eol=lf
+
+# Java, YAML, properties → LF
+*.java text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.properties text eol=lf
+
+# Markdown, JSON → LF
+*.md text eol=lf
+*.json text eol=lf
