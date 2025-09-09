@@ -1,0 +1,40 @@
+services:
+
+# PostgreSQL database container
+  user-db:
+    image: postgres:15
+    container_name: user-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: userpass
+      POSTGRES_DB: user_db
+    volumes:
+      - user-db-data:/var/lib/postgresql/data #store data on host to persist
+      - ./init-scripts/user-db:/docker-entrypoint-initdb.d # import database schema
+    ports:
+      - "5433:5432"   # external:internal => db run at 5432
+    networks:
+      - invoice-net
+    restart: unless-stopped
+
+# Spring Boot user-service container
+  user-service:
+    build:
+      context: ./user
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - "8081:8090"   # external:internal
+    depends_on:
+      - user-db  # Ensures database starts before user-service
+    networks:
+      - invoice-net
+    restart: unless-stopped
+
+
+networks:
+  invoice-net:
+    driver: bridge
+# Named volume for PostgreSQL persistence
+volumes:
+  user-db-data:
