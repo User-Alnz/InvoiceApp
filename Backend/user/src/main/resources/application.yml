@@ -1,22 +1,25 @@
-eureka:
-  instance:
-    hostname: localhost
-  client:
-    service-url:
-      defaultZone: http://localhost:8760/eureka
-
 server:
-  port: 8090
+    port: 8090
 spring:
+  # Remove if Euraka is set
+  cloud:
+    discovery:
+      enabled: false
+  # Spring app name
   application:
-    name: user
+    name: user 
+  # Spring Config Server (optional)
   config:
-   import: optional:configserver:http://localhost:8888
+    import: optional:configserver:http://localhost:8888
+  # Database config
   datasource:
-   driver-class-name: org.postgresql.Driver
-   url: jdbc:postgresql://localhost:5432/user
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5433}/user_db
+    username: ${DB_USER:user}
+    password: ${DB_PASS:userpass}
+  # Hibernate 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
