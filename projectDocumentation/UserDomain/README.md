@@ -58,48 +58,37 @@ Pass "companyId": 1, to register client to related company
 }
 ```
 
-### 2. **Get clients by company id**
+### 2. **Get client by id**
 
 
-**GET** `/api/client/{companyId}`
+**GET** `/api/client/{id}`
 
-Retrieve all clients belonging to a specific company.
+Retrieve a client by its id.
 
 
 #### Success Response
 ```json
 {
-  "status": "success",
-  "code": 200,
-  "data": [
-    {
-      "id": 10,
-      "name": "ACME Corp",
-      "address": "123 Main St",
-      "postalCode": "75001",
-      "country": "France",
-      "tel": "+33 6 12 34 56 78",
-      "email": "contact@acme.com"
-    },
-    {
-      "id": 11,
-      "name": "Globex",
-      "address": "456 Avenue Rd",
-      "postalCode": "69002",
-      "country": "France",
-      "tel": "+33 7 98 76 54 32",
-      "email": "info@globex.com"
+    "status": "success",
+    "code": 200,
+    "data": {
+        "id": 2,
+        "name": "Client B",
+        "address": "20 Avenue des Clients",
+        "postalCode": "75003",
+        "country": "France",
+        "tel": "+33 1 55 66 77 88",
+        "email": "clientB@example.com"
     }
-  ]
 }
 ```
 
 #### Error Response (example when company not found)
 ```json
 {
-  "status": "error",
-  "code": 404,
-  "message": "Company not found with id: 3"
+    "status": "error",
+    "code": 404,
+    "data": "Client not found with id: 1"
 }
 ```
 

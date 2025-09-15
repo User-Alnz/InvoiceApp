@@ -1,6 +1,5 @@
 package com.InvoiceAppBackend.user.controller;
 
-import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +22,11 @@ public class ClientController
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponsePattern<List<UserClient>>> getClientByCompanyId(@PathVariable Long id) 
+    public ResponseEntity<ResponsePattern<UserClient>> getClientById(@PathVariable Long id) 
     {
-        List<UserClient> response = service.getClientByCompanyId(id);
+        UserClient response = service.getClientById(id);
 
-        return ResponseEntity.ok(new ResponsePattern<>("success", 200,response));
+        return ResponseEntity.ok(new ResponsePattern<>("success", 200, response));
     }
 
     @PostMapping

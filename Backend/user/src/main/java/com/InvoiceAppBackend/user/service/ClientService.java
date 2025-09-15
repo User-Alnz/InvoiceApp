@@ -1,8 +1,6 @@
 package com.InvoiceAppBackend.user.service;
 
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.InvoiceAppBackend.user.dto.request.CreateClientRequest;
@@ -25,12 +23,10 @@ public class ClientService
     private final ClientRepository repository;
     private final CompanyRepository companyRepository;
 
-    public List<UserClient> getClientByCompanyId(Long id)
+    public UserClient getClientById(Long id)
     {
-        UserCompany company = companyRepository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Company not found with id: " + id));
-
-        return repository.findByCompanyId(company);
+        return repository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Client not found with id: " + id));
     }
 
     public CreateClientResponse createClient(CreateClientRequest request)
