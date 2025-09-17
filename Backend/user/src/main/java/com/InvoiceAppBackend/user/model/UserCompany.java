@@ -1,5 +1,7 @@
 package com.InvoiceAppBackend.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +19,7 @@ public class UserCompany
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
+	@JsonIgnore
 	private UserAccount userAccount;
 	
 	@Column(nullable = false)
@@ -24,6 +27,9 @@ public class UserCompany
 	
 	@Column(nullable = false)
 	private String address;
+
+	@Column(name="postal_code", nullable = false)
+	private String postalCode;
 
 	@Column(nullable = false)
 	private String country;
