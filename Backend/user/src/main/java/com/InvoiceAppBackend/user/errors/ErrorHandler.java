@@ -45,13 +45,20 @@ public class ErrorHandler
     public ResponseEntity<ResponsePattern<String>> handleNotFound(EntityNotFoundException ex) 
     {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ResponsePattern<>("error", 404, ex.getMessage()));
+            .body(new ResponsePattern<>("error", 404, ex.getMessage()));
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ResponsePattern<String>> handleIllegalState(IllegalStateException ex) 
+    {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(new ResponsePattern<>("error", 400, ex.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponsePattern<String>> handleGeneric(Exception ex) 
     {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ResponsePattern<>("error", 500, "Unexpected error occurred"));
+            .body(new ResponsePattern<>("error", 500, "Unexpected error occurred"));
     }
 }
