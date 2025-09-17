@@ -20,7 +20,7 @@ public class UserClient
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
     @JsonIgnore
-    private UserCompany companyId;
+    private UserCompany company;
 
     @Column(nullable = false, length = 128)
     private String name;

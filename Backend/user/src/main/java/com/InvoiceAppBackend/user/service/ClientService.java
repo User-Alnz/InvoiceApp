@@ -43,7 +43,7 @@ public class ClientService
                 .country(request.getCountry())
                 .tel(request.getTel())
                 .email(request.getEmail())
-                .companyId(company) // link to fetched entity
+                .company(company) // link to fetched entity
                 .build();
 
         repository.save(client);
