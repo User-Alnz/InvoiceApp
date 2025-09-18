@@ -312,6 +312,13 @@ Pass "companyId": 1, to register client to related company
 }
 ```
 
+#### Missing Required Parameter
+```json
+{
+    "name": "Company name is required"
+}
+```
+
 #### Error Response (example when company not found)
 ```json
 {

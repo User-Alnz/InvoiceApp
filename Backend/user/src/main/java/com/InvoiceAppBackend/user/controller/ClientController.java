@@ -4,6 +4,8 @@ package com.InvoiceAppBackend.user.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+
 import com.InvoiceAppBackend.user.dto.ResponsePattern;
 import com.InvoiceAppBackend.user.dto.request.CreateClientRequest;
 import com.InvoiceAppBackend.user.dto.response.CreateClientResponse;
@@ -30,7 +32,7 @@ public class ClientController
     }
 
     @PostMapping
-    public ResponseEntity<ResponsePattern<CreateClientResponse>> createClient(@RequestBody CreateClientRequest request)
+    public ResponseEntity<ResponsePattern<CreateClientResponse>> createClient(@Valid @RequestBody CreateClientRequest request)
     {   
         CreateClientResponse response = service.createClient(request);
 
