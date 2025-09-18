@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.InvoiceAppBackend.user.dto.request.CreateCompanyRequest;
 import com.InvoiceAppBackend.user.dto.request.UpdateCompanyRequest;
+import com.InvoiceAppBackend.user.dto.response.CreateCompanyResponse;
 
 import com.InvoiceAppBackend.user.model.UserAccount;
 import com.InvoiceAppBackend.user.model.UserClient;
@@ -40,7 +41,7 @@ public class CompanyService
         return clientRepository.findByCompany_Id(id);
     }
 
-    public UserCompany createCompany(CreateCompanyRequest request) 
+    public CreateCompanyResponse createCompany(CreateCompanyRequest request) 
     {
         UserAccount user = accountRepository.findById(request.getUserId())
         .orElseThrow(() -> new EntityNotFoundException("User id not found"));
@@ -69,7 +70,12 @@ public class CompanyService
         .websiteUrl(request.getWebsiteUrl())
         .build();
 
-        return repository.save(company);
+        repository.save(company);
+
+        return CreateCompanyResponse.builder()
+                .id(company.getId())
+                .name(company.getName())
+                .build();
     }
 
     @Transactional //-> secure deletion and rollback if one function in scope fail

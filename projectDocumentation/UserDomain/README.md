@@ -146,18 +146,6 @@ Pass "userId": 1, to register client to related company
     "data": {
         "id": 18,
         "name": "FakeCorpo",
-        "address": "123 Main Street",
-        "postalCode": "75051",
-        "country": "France",
-        "tel": "+33123456789",
-        "email": "contact@acme.com",
-        "legalStatus": "SARL",
-        "shareCapital": 50000.0,
-        "siren": "123456789",
-        "siret": "12345678900012",
-        "rcs": "RCS Paris B 123 456 789",
-        "tvaNumber": "FR12345678901",
-        "websiteUrl": "https://www.acme.com"
     }
 }
 ```

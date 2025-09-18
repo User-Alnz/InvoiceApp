@@ -12,11 +12,9 @@ import com.InvoiceAppBackend.user.model.UserClient;
 import com.InvoiceAppBackend.user.dto.ResponsePattern;
 import com.InvoiceAppBackend.user.dto.request.CreateCompanyRequest;
 import com.InvoiceAppBackend.user.dto.request.UpdateCompanyRequest;
+import com.InvoiceAppBackend.user.dto.response.CreateCompanyResponse;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 
@@ -48,9 +46,9 @@ public class CompanyController
     }
 
     @PostMapping //@Valid allows validation over Object properties CreateCompanyRequest
-    public ResponseEntity<ResponsePattern<UserCompany>> createCompany(@Valid @RequestBody CreateCompanyRequest request) 
+    public ResponseEntity<ResponsePattern<CreateCompanyResponse>> createCompany(@Valid @RequestBody CreateCompanyRequest request) 
     {   
-        UserCompany response = service.createCompany(request);
+        CreateCompanyResponse response = service.createCompany(request);
 
         return ResponseEntity.ok(new ResponsePattern<>("success", 200, response));
     }
