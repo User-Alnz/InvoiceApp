@@ -8,6 +8,9 @@ import com.InvoiceAppBackend.Auth.dto.ResponsePattern;
 import com.InvoiceAppBackend.Auth.service.UserInfoService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -27,7 +30,7 @@ public class AuthController
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ResponsePattern<String>> postMethodName(@Valid @RequestBody RequestCreateUser request) 
+    public ResponseEntity<ResponsePattern<String>> register(@Valid @RequestBody RequestCreateUser request) 
     {
         String response = service.addUser(request);
 
