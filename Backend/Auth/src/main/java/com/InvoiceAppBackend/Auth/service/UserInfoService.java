@@ -5,10 +5,15 @@ import org.springframework.stereotype.Service;
 import com.InvoiceAppBackend.Auth.model.UserInfo;
 import com.InvoiceAppBackend.Auth.repository.UserInfoRepository;
 import com.InvoiceAppBackend.Auth.dto.RequestCreateUser;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.User; //security adapter object.
 
 @Service
-public class UserInfoService 
+public class UserInfoService implements UserDetailsService
 {
     private UserInfoRepository repository;
     private PasswordEncoder encoder;
@@ -32,5 +37,17 @@ public class UserInfoService
         repository.save(user);
 
         return "User created";
+    }
+
+    @Override //override to create bridge with DB and build object from model UserInfo.
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException 
+    {
+        //this write User Object from spring security. from unique user email.
+        return repository.findByEmail(email)
+            .map(user -> User.withUsername(user.getEmail())
+                             .password(user.getPassword())  //get encoded password from DB
+                             .roles(user.getRole().name())  //get role from enum.name(() to get it as string
+                             .build()) 
+            .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
     }
 }
