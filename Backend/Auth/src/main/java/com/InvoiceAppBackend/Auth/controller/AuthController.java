@@ -8,15 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import com.InvoiceAppBackend.Auth.dto.AuthRequest;
 import com.InvoiceAppBackend.Auth.dto.RequestCreateUser;
 import com.InvoiceAppBackend.Auth.dto.ResponsePattern;
-//import com.InvoiceAppBackend.Auth.service.JWTService;
+import com.InvoiceAppBackend.Auth.service.JWTService;
 import com.InvoiceAppBackend.Auth.service.UserInfoService;
 
 import jakarta.validation.Valid;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 @RestController
@@ -25,18 +23,17 @@ public class AuthController
 {
     private UserInfoService service;
     private AuthenticationManager authManager;
-    //private JWTService jwtservice;
+    private JWTService jwtService;
     
-    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     AuthController(
         UserInfoService service,
-        AuthenticationManager authManager)
-        //JWTService jwtservice)
+        AuthenticationManager authManager,
+        JWTService jwtService)
     {
         this.service = service;
         this.authManager = authManager;
-        //this.jwtservice = jwtservice;
+        this.jwtService = jwtService;
     }
 
     @GetMapping
@@ -55,7 +52,6 @@ public class AuthController
     @PostMapping("/login")
     public String login(@RequestBody AuthRequest request) 
     {
-        log.info("AuthRequest: {}", request);
 
         Authentication auth = authManager.authenticate(
             new UsernamePasswordAuthenticationToken(
@@ -63,13 +59,11 @@ public class AuthController
                 request.getPassword()
             )
         );
-
-        log.info("AuthRequest: {}", auth);
         
         if(auth.isAuthenticated())
-            return "login sucess"; //remove for JWT hashing
+            return jwtService.generateToken(auth.getName());
         else
-            throw new UsernameNotFoundException("invalid credentials");
+        throw new UsernameNotFoundException("invalid credentials");
     }
     
 }
