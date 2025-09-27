@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.core.userdetails.User; //security adapter object.
 
 @Service
 public class UserInfoService implements UserDetailsService
@@ -48,12 +47,9 @@ public class UserInfoService implements UserDetailsService
     @Override //override to create bridge with DB and build object from model UserInfo.
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException 
     {
-        //this write User Object from spring security. from unique user email.
+        //UserInfoDetails insteadsof User as adapter for authenticate() from DaoProvider
         return repository.findByEmail(email)
-            .map(user -> User.withUsername(user.getEmail())
-                             .password(user.getPassword())  //get encoded password from DB
-                             .roles(user.getRole().name())  //get role from enum.name(() to get it as string
-                             .build()) 
+            .map(UserInfoDetails::new)
             .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
     }
 }
