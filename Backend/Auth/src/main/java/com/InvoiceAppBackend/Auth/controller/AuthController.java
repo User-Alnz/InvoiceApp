@@ -44,7 +44,7 @@ public class AuthController
     @PostMapping("/register")
     public ResponseEntity<ResponsePattern<String>> register(@Valid @RequestBody RequestCreateUser request) 
     {
-        String response = service.addUser(request);
+        String response = service.createUser(request);
 
         return ResponseEntity.ok(new ResponsePattern<>("success", 200, response));
     }

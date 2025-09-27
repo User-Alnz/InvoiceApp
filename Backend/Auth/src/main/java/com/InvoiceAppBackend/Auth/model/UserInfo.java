@@ -14,6 +14,10 @@ public class UserInfo
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST) 
+    @JoinColumn(name = "tenant_id", nullable = false)
+    private Tenant tenant;
+
     @Column(name = "first_name", nullable = false)
     private String firstName;
 

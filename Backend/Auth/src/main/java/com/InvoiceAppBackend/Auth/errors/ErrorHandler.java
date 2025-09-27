@@ -41,6 +41,12 @@ public class ErrorHandler
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST); 
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ResponsePattern<String>> handleIllegalArgument(IllegalArgumentException ex) 
+    {
+       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(new ResponsePattern<>("error", 400, ex.getMessage()));
+    }
     
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ResponsePattern<String>> handleNotFound(EntityNotFoundException ex) 
