@@ -41,7 +41,7 @@ public class JWTService
                 .compact();
     }
 
-    //This gennerates signature from secret key in app properties 
+    //This generates signature from secret key in app properties 
     private Key getSignKey()
     {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
@@ -49,10 +49,15 @@ public class JWTService
     }
 
     //This handles entry for dynamic field. like add tenantId, comapanyId etc..
-    public String generateToken(String email) 
+    public String generateToken(UserInfoDetails userDetails)
     { 
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, email);
+        claims.put("tenantId", userDetails.getTenantId().toString());
+        claims.put("roles", userDetails.getAuthorities()
+                                   .stream()
+                                   .map(Object::toString)
+                                   .toList());
+        return createToken(claims, userDetails.getUsername());
     }
 
 
@@ -79,9 +84,9 @@ public class JWTService
     private Claims extractAllClaims(String token) 
     {
         return Jwts.parserBuilder()
-                .setSigningKey(getSignKey())
+                .setSigningKey(getSignKey()) //!imp. Call private key to verify signature after payload
                 .build()
-                .parseClaimsJws(token)
+                .parseClaimsJws(token) //!imp. Control payload claim/entries and check if matches with signature.
                 .getBody();
     }
 

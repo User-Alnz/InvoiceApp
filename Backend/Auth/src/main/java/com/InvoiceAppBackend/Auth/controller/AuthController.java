@@ -9,14 +9,16 @@ import com.InvoiceAppBackend.Auth.dto.AuthRequest;
 import com.InvoiceAppBackend.Auth.dto.RequestCreateUser;
 import com.InvoiceAppBackend.Auth.dto.ResponsePattern;
 import com.InvoiceAppBackend.Auth.service.JWTService;
+import com.InvoiceAppBackend.Auth.service.UserInfoDetails;
 import com.InvoiceAppBackend.Auth.service.UserInfoService;
 
 import jakarta.validation.Valid;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j 
 @RestController
 @RequestMapping("/auth")
 public class AuthController 
@@ -60,8 +62,10 @@ public class AuthController
             )
         );
         
+        UserInfoDetails userDetails = (UserInfoDetails) auth.getPrincipal();
+
         if(auth.isAuthenticated())
-            return jwtService.generateToken(auth.getName());
+            return jwtService.generateToken(userDetails);
         else
         throw new UsernameNotFoundException("invalid credentials");
     }
