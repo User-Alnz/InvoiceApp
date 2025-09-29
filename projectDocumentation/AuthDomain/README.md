@@ -110,8 +110,25 @@ If any of those does not match with database, backend retuns 401 invalid crendet
 }
 ```
 #### Success Response
+
+Succes response return a string base64.
+
+This encode : **{header}.{PayLoad}.{Signature}**
+
 ```text
 eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBRE1JTiJdLCJ0ZW5hbnRJZCI6Ijg4OTE4MGU5LTU4MDEtNDdjYi1hYzZhLTkxMTc4ZDdjNWFkZCIsInN1YiI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNzU5MTQ5NDI4LCJleHAiOjE3NTkxNTEyMjh9.BFVCipkwRHXyhgS1T3pkJEc5vSp74KRej68-IL9u6og
+```
+
+This is exemple of decoded payload :
+
+```json
+{
+    "sub":"test@gmail.com",
+    "roles":["ADMIN"],
+    "tenantId":"889180e9-5801-47cb-ac6a-91178d7c5add",
+    "iat":1759149428,
+    "exp":1759151228
+}
 ```
 
 ### /Login diagram flow :
