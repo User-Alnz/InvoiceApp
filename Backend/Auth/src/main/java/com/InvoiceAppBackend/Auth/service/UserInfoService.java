@@ -2,6 +2,7 @@ package com.InvoiceAppBackend.Auth.service;
 
 import org.springframework.stereotype.Service;
 
+import com.InvoiceAppBackend.Auth.model.Role;
 import com.InvoiceAppBackend.Auth.model.Tenant;
 import com.InvoiceAppBackend.Auth.model.UserInfo;
 import com.InvoiceAppBackend.Auth.repository.UserInfoRepository;
@@ -37,7 +38,7 @@ public class UserInfoService implements UserDetailsService
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
         user.setPassword(encoder.encode(request.getPassword())); //hash password from PasswordEncoder. Defined in SecurityConfig class.
-        user.setRole(request.getRole());
+        user.setRole(Role.ADMIN);
 
         repository.save(user); // Hibernate insert tenant, first next user.
 
