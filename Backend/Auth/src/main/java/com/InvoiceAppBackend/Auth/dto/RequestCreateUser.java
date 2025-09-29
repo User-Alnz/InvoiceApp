@@ -1,6 +1,5 @@
 package com.InvoiceAppBackend.Auth.dto;
 
-import com.InvoiceAppBackend.Auth.model.Role;
 
 import jakarta.validation.constraints.*;
 
@@ -26,7 +25,5 @@ public class RequestCreateUser
     @Size(min=8, max=128,message = "password is minimum 8 and max 128 characters length")
     private String password;
 
-    @NotNull(message = "Role must be provided")
-    private Role role;
 
 }
