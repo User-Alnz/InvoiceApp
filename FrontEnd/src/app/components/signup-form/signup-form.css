@@ -1,0 +1,25 @@
+.authForm, .authForm label
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.authForm div
+{
+    display: flex;
+    gap: 10px;
+}
+.authForm input
+{
+    padding: 15px;
+    border-radius: 8px;
+    background: #314158;
+    color: #f1f5f9;
+    border: none;
+    outline: none;
+}
+.authForm button
+{
+    margin: 5px; 
+    padding: 15px;
+}

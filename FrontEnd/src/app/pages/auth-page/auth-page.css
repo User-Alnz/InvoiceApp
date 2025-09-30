@@ -1,0 +1,64 @@
+.authPage
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #1d293d;
+    color: #f1f5f9;
+    gap: 15px;
+}
+
+.appLogo
+{
+    display: flex;
+    justify-content: center;
+    background: #059669;
+    width: 80px;
+    border-radius: 15px;
+    padding: 20px 0  20px 0;
+    
+}
+.appLogo img
+{
+    width: 50px;
+}
+
+.authContainer
+{
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap : 15px;
+
+    padding: 30px 30px;
+    margin-top: 25px;
+
+    background: rgba(255, 255, 255, 0.007);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.wrapAuthButtons
+{
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    border-radius: 8px;
+    background: #314158;
+}
+.wrapAuthButtons button
+{
+    flex: 1;
+    align-self: stretch;
+}
+.formContainer
+{
+    flex: 1;
+    align-self: stretch;
+}

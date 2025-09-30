@@ -1,0 +1,46 @@
+<section class="authPage">
+
+    <div class="appLogo">
+        <img src='/appLogo.png' alt="logo de l'application">
+    </div>
+
+    <h1>Invoice Pro</h1>
+
+    <p>La gestion professionnelle des factures simplifiée</p>
+
+    <div class="authContainer">
+
+        <h2>Bienvenue</h2>
+
+        <p>Connectez-vous à votre compte ou créez-en un nouveau</p>
+
+        <div class="wrapAuthButtons">
+            
+            <button 
+                (click)="activeSelection = 'login'" 
+                [ngClass]="activeSelection === 'login' ? 'btn' : 'btn btn-secondary'">
+                Connection
+            </button>
+            
+            <button (click)="activeSelection = 'signup'" 
+                [ngClass]="activeSelection === 'signup' ? 'btn' : 'btn btn-secondary'">
+                Inscription
+            </button>
+            
+        </div>
+
+        @if(activeSelection === "login")
+        {
+            <app-login-form class="formContainer">            
+            </app-login-form>
+        }
+
+        @if(activeSelection === "signup")
+        {
+            <app-signup-form class="formContainer">
+            </app-signup-form>
+        }
+
+    </div>
+
+</section>
