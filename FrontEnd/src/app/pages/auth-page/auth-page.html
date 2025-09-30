@@ -15,27 +15,31 @@
         <p>Connectez-vous à votre compte ou créez-en un nouveau</p>
 
         <div class="wrapAuthButtons">
-            <button class="btn btn-secondary">Connection</button>
-            <button class="btn btn-secondary">Inscription</button>
+            
+            <button 
+                (click)="activeSelection = 'login'" 
+                [ngClass]="activeSelection === 'login' ? 'btn' : 'btn btn-secondary'">
+                Connection
+            </button>
+            
+            <button (click)="activeSelection = 'signup'" 
+                [ngClass]="activeSelection === 'signup' ? 'btn' : 'btn btn-secondary'">
+                Inscription
+            </button>
+            
         </div>
 
-        <!--this form is temporary model => will be moved to component-->
-        <form class="authForm" action="">
+        @if(activeSelection === "login")
+        {
+            <app-login-form class="formContainer">            
+            </app-login-form>
+        }
 
-            <label for="">
-                Email
-                <input type="text">    
-            </label>
-            
-            <label for="">
-                Password
-                <input type="text">    
-            </label>
-
-            <button class="btn">Se connecter</button>
-
-        </form>
-        <!--this form is temporary model => will be moved to component-->
+        @if(activeSelection === "signup")
+        {
+            <app-signup-form class="formContainer">
+            </app-signup-form>
+        }
 
     </div>
 
