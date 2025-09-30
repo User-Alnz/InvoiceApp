@@ -20,6 +20,14 @@
 
 .btn-secondary 
 {
-  background: #f1f5f9;
-  color: #475569;
+  background: none;
+  color: #f1f5f9;
+}
+
+/*Button logic goes below :*/
+
+.btn-secondary:focus,
+.btn-secondary:active
+{
+  background: #059669;
 }
