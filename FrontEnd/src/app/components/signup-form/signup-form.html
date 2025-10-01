@@ -4,14 +4,16 @@
         <label>
             Prénom
             <input type="text" formControlName="firstName" name="prénom" placeholder="Prénom">    
+            <app-error-message-on-inputs [control]="formEntites['firstName']"></app-error-message-on-inputs>
         </label>
-        <app-error-message-on-inputs [control]="formEntites['firstName']"></app-error-message-on-inputs>
+        
         
         <label>
             Nom de famille
             <input type="text" formControlName="lastName" name="prénom" placeholder="Nom">    
+            <app-error-message-on-inputs [control]="formEntites['lastName']"></app-error-message-on-inputs>
         </label>
-        <app-error-message-on-inputs [control]="formEntites['lastName']"></app-error-message-on-inputs>
+        
     </div>
 
     <label>
