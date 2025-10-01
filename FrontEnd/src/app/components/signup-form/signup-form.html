@@ -1,32 +1,37 @@
-<form class="authForm" action="">
+<form class="authForm" [formGroup]="form" (ngSubmit)="onSubmit()">
 
     <div>
-        <label for="">
+        <label>
             Prénom
-            <input type="text">    
+            <input type="text" formControlName="firstName" name="prénom" placeholder="Prénom">    
         </label>
+        <app-error-message-on-inputs [control]="formEntites['firstName']"></app-error-message-on-inputs>
         
-        <label for="">
+        <label>
             Nom de famille
-            <input type="text">    
+            <input type="text" formControlName="lastName" name="prénom" placeholder="Nom">    
         </label>
+        <app-error-message-on-inputs [control]="formEntites['lastName']"></app-error-message-on-inputs>
     </div>
 
-    <label for="">
+    <label>
         Email
-        <input type="text">    
+        <input type="text" formControlName="email" name="prénom" placeholder="Email">    
     </label>
+    <app-error-message-on-inputs [control]="formEntites['email']"></app-error-message-on-inputs>
 
-    <label for="">
+    <label>
         Mot de passe
-        <input type="text">    
+        <input type="password" formControlName="password" name="mot-de-passe" placeholder="••••••••">    
     </label>
+    <app-error-message-on-inputs [control]="formEntites['password']"></app-error-message-on-inputs>
 
-    <label for="">
+    <label>
         Confirmation mot de passe
-        <input type="text">    
+        <input type="password" formControlName="confirmPassword" name="confirmation-mot-de-passe" placeholder="••••••••">    
     </label>
+    <app-error-message-on-inputs [control]="form"></app-error-message-on-inputs>
 
-    <button class="btn">Créez un compte</button>
+    <button class="btn" type="submit" [disabled]="form.invalid">Créez un compte</button>
 
 </form>
