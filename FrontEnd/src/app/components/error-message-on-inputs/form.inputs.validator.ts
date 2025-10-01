@@ -67,4 +67,39 @@ export class CustomedValidators
             return { invoiceNumber: true };
         };
     }
+
+    static password() : ValidatorFn
+    {
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,128}$/;
+        
+        return (control: AbstractControl): ValidationErrors | null =>
+        {
+            if (!control.value) 
+            return null;
+
+            if(regex.test(control.value) === true)
+            return null;
+            else
+            return { password: true };
+        };
+    }
+
+    //This works at FormGroup level on controls. // refer => signup-form component.
+    static passwordMismatch( passwordKey : string, confirmPasswordKey : string) : ValidatorFn
+    {
+        return (control: AbstractControl): ValidationErrors | null =>
+        {
+            const password = control.get(passwordKey);
+            const confirmPassword = control.get(confirmPasswordKey);
+
+            if(!password || !confirmPassword) // simply skip validation while field are null.
+                return null; 
+
+            if(!confirmPassword.value) // prevent UX issue while not value in confirmPassword field.
+                return null;
+
+            return password.value !== confirmPassword.value ? 
+                {passwordMismatch: true} : null;
+        }
+    }
 }

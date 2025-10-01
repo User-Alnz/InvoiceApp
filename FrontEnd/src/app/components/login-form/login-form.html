@@ -1,15 +1,17 @@
-<form class="authForm" action="">
+<form class="authForm" [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    <label for="">
+    <label>
         Email
-        <input type="text">    
+        <input type="text" formControlName="email" name="email-utilisateur" placeholder="exemple@gmail.com">    
     </label>
+    <app-error-message-on-inputs [control]="formEntries['email']"></app-error-message-on-inputs>
     
-    <label for="">
-        Password
-        <input type="text">    
+    <label>
+        Mot de passe
+        <input type="password" formControlName="password" name="mot-de-passe" placeholder="••••••••">    
     </label>
+    <app-error-message-on-inputs [control]="formEntries['password']"></app-error-message-on-inputs>
 
-    <button class="btn">Se connecter</button>
+    <button class="btn" type="submit" [disabled]="form.invalid">Se connecter</button>
 
 </form>
