@@ -16,9 +16,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j 
 @RestController
 @RequestMapping("/auth")
 public class AuthController 
@@ -38,10 +36,6 @@ public class AuthController
         this.jwtService = jwtService;
     }
 
-    @GetMapping
-    public String runTest() {
-        return "Controller ok";
-    }
 
     @PostMapping("/register")
     public ResponseEntity<ResponsePattern<String>> register(@Valid @RequestBody RequestCreateUser request) 
@@ -52,7 +46,7 @@ public class AuthController
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody AuthRequest request) 
+    public ResponseEntity<ResponsePattern<String>> login(@Valid @RequestBody AuthRequest request) 
     {
 
         Authentication auth = authManager.authenticate(
@@ -65,7 +59,11 @@ public class AuthController
         UserInfoDetails userDetails = (UserInfoDetails) auth.getPrincipal();
 
         if(auth.isAuthenticated())
-            return jwtService.generateToken(userDetails);
+        {
+            String jwt = jwtService.generateToken(userDetails);
+
+            return ResponseEntity.ok(new ResponsePattern<>("success", 200, jwt));   
+        }
         else
         throw new UsernameNotFoundException("invalid credentials");
     }
