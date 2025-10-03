@@ -111,6 +111,14 @@ If any of those does not match with database, backend retuns 401 invalid crendet
 ```
 #### Success Response
 
+```json
+{
+    "status": "success",
+    "code": 200,
+    "data": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBRE1JTiJdLCJ0ZW5hbnRJZCI6Ijg4OTE4MGU5LTU4MDEtNDdjYi1hYzZhLTkxMTc4ZDdjNWFkZCIsInN1YiI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNzU5NTA4MjUzLCJleHAiOjE3NTk1MTAwNTN9.B5u5qtK0z37wfYDJ_-9PdGk4x27aIY3twn7-a0vgxBo"
+}
+```
+
 Succes response return a string base64.
 
 This encode : **{header}.{PayLoad}.{Signature}**
