@@ -1,5 +1,7 @@
 package com.InvoiceAppBackend.Auth.controller;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,9 +18,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j 
 @RestController
 @RequestMapping("/auth")
 public class AuthController 
@@ -52,7 +52,7 @@ public class AuthController
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody AuthRequest request) 
+    public ResponseEntity<String> login(@Valid @RequestBody AuthRequest request) 
     {
 
         Authentication auth = authManager.authenticate(
@@ -65,7 +65,21 @@ public class AuthController
         UserInfoDetails userDetails = (UserInfoDetails) auth.getPrincipal();
 
         if(auth.isAuthenticated())
-            return jwtService.generateToken(userDetails);
+        {
+            String jwt = jwtService.generateToken(userDetails);
+
+            ResponseCookie cookie = ResponseCookie.from("jwt", jwt)
+            .httpOnly(true)
+            //.secure(true) //https only - remove comment for prod mod !
+            .sameSite("Strict")
+            .path("/")
+            .maxAge(3600) //equiv to 1 hour
+            .build();
+
+            return ResponseEntity.ok()
+            .header(HttpHeaders.SET_COOKIE, cookie.toString())
+            .body("Login successful");
+        }
         else
         throw new UsernameNotFoundException("invalid credentials");
     }
