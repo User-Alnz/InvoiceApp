@@ -1,13 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { AuthService } from '@app/services/authService';
 
+import { ErrorBanner } from '../error-banner/error-banner';
 import { ErrorMessageOnInputs } from '../error-message-on-inputs/error-message-on-inputs';
 import { CustomedValidators } from '@app/components/error-message-on-inputs/form.inputs.validator';
+import { loginRequest } from '@app/services/auth.models';
+
 
 @Component({
   selector: 'app-login-form',
-  imports: [CommonModule, ReactiveFormsModule, ErrorMessageOnInputs],
+  imports: [CommonModule, ReactiveFormsModule, ErrorMessageOnInputs, ErrorBanner],
   templateUrl: './login-form.html',
   styleUrl: './login-form.css'
 })
@@ -15,8 +19,9 @@ export class LoginForm
 {
 
   form : FormGroup;
+  apiErrorMessage : string | null = null;
 
-  constructor( private formBuilder : FormBuilder)
+  constructor( private formBuilder : FormBuilder, private http : AuthService)
   {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, CustomedValidators.email()]],
@@ -39,6 +44,20 @@ export class LoginForm
       this.form.markAllAsTouched();
       return;
     }
+
+    this.apiErrorMessage = null;
+    const request : loginRequest = this.form.value;
+
+    this.http.login(request).subscribe(
+    (res) =>
+    {
+      if(res.status ==="success")
+        console.log("connection ok"); 
+      else if(res.code === 401 && res.data.includes("Invalid credentials"))
+        this.apiErrorMessage = "vos identifiants sont invalides";
+      else
+        this.apiErrorMessage = "une error est survenue";
+    });
 
     console.log(this.form.value);
   }
