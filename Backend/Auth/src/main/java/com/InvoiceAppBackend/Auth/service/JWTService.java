@@ -21,9 +21,9 @@ public class JWTService
 {
      
     //Load from env secret key + token expirency ->  field injection to String secret and expirationMS. 
-    @Value("${spring.jwt.secret}")
+    @Value("${jwt.secret}")
     private String secret;
-    @Value("${spring.jwt.expiration-ms}")
+    @Value("${jwt.expiration-ms}")
     private long expirationMS;
 
     /* 
