@@ -1,5 +1,6 @@
 package com.InvoiceAppBackend.Auth.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Data
@@ -7,6 +8,8 @@ import lombok.*;
 @NoArgsConstructor
 public class AuthRequest 
 {
+    @NotBlank
     private String email;
+    @NotBlank
     private String password;
 }
