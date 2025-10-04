@@ -24,10 +24,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class JwtServiceTest {
 
-    @Value("${spring.jwt.secret}")
+    @Value("${jwt.secret}")
     private String secret;
 
-    @Value("${spring.jwt.expiration-ms}")
+    @Value("${jwt.expiration-ms}")
     private long expirationMs;
 
     @Autowired
