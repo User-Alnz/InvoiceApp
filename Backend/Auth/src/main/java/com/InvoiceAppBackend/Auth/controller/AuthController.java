@@ -52,7 +52,7 @@ public class AuthController
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody AuthRequest request) 
+    public ResponseEntity<ResponsePattern<String>> login(@Valid @RequestBody AuthRequest request) 
     {
 
         Authentication auth = authManager.authenticate(
@@ -78,7 +78,7 @@ public class AuthController
 
             return ResponseEntity.ok()
             .header(HttpHeaders.SET_COOKIE, cookie.toString())
-            .body("Login successful");
+            .body(new ResponsePattern<>("success", 200, "Login successful"));
         }
         else
         throw new UsernameNotFoundException("invalid credentials");
