@@ -90,8 +90,16 @@ sequenceDiagram
 
 **POST** `/auth/login`
 
+Authenticates the user and issues a JWT token.
+
 To issue JWT token. You need to send email and password.
-If any of those does not match with database, backend retuns 401 invalid crendetials.
+
+**The JWT is returned only as an HTTP-only cookie named jwt.**
+
+* The cookie cannot be accessed via JavaScript (httpOnly=true), avoid XSS attack.
+* It is meant to be reused on each requests by the browser. FrontEnd is not supposed to handle it directly.
+
+If any of email or password does not match with database, backend retuns 401 invalid crendetials.
 
 
 #### Request Body
@@ -111,7 +119,15 @@ If any of those does not match with database, backend retuns 401 invalid crendet
 ```
 #### Success Response
 
-Succes response return a string base64.
+```json
+{
+    "status": "success",
+    "code": 200,
+    "data": "Login successful"
+}
+```
+
+Succes response return a cookie "jwt" string base64.
 
 This encode : **{header}.{PayLoad}.{Signature}**
 
