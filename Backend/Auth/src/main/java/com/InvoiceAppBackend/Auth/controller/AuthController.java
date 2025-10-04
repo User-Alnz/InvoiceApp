@@ -1,5 +1,7 @@
 package com.InvoiceAppBackend.Auth.controller;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -62,7 +64,17 @@ public class AuthController
         {
             String jwt = jwtService.generateToken(userDetails);
 
-            return ResponseEntity.ok(new ResponsePattern<>("success", 200, jwt));   
+            ResponseCookie cookie = ResponseCookie.from("jwt", jwt)
+            .httpOnly(true)
+            //.secure(true) //https only - remove comment for prod mod !
+            .sameSite("Strict")
+            .path("/")
+            .maxAge(3600) //equiv to 1 hour
+            .build();
+
+            return ResponseEntity.ok()
+            .header(HttpHeaders.SET_COOKIE, cookie.toString())
+            .body(new ResponsePattern<>("success", 200, "Login successful"));
         }
         else
         throw new UsernameNotFoundException("invalid credentials");
