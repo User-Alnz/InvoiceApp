@@ -3,6 +3,7 @@ package com.InvoiceAppBackend.Auth.dto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

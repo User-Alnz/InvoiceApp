@@ -38,10 +38,6 @@ public class AuthController
         this.jwtService = jwtService;
     }
 
-    @GetMapping
-    public String runTest() {
-        return "Controller ok";
-    }
 
     @PostMapping("/register")
     public ResponseEntity<ResponsePattern<String>> register(@Valid @RequestBody RequestCreateUser request) 

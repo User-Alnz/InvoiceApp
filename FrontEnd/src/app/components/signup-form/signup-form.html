@@ -1,5 +1,7 @@
 <form class="authForm" [formGroup]="form" (ngSubmit)="onSubmit()">
 
+    <app-error-banner [message]="apiErrorMessage"></app-error-banner>
+    
     <div>
         <label>
             Prénom
