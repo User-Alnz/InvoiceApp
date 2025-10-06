@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 import { ApiResponse, registerRequest, loginRequest} from './auth.models';
 import { environment } from 'environments/environment.development';
 
@@ -11,6 +11,9 @@ export class AuthService
 {
 
   private url = environment.urlAuthDomain;
+
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false); //Rxjs subject/state can change in pipe()
+  isLoggedIn$ = this.isLoggedInSubject.asObservable(); //observable read-only.
 
   constructor(private http: HttpClient){}
 
@@ -36,9 +39,16 @@ export class AuthService
 
   login(request : loginRequest): Observable<ApiResponse>
   {
-    return this.http.post<ApiResponse>(`${this.url}/login`, request).pipe(
+    return this.http.post<ApiResponse>(`${this.url}/login`, request,
+      { withCredentials: true } // imp allows HttpOnly Set-Cookie
+    ).pipe(
       
+      tap((response : ApiResponse)=>
+      {
+        if(response.status === 'success' && response.code === 200)
+        this.isLoggedInSubject.next(true);
 
+      }),
       catchError((err) => {
       
       const errorResponse: ApiResponse = 
