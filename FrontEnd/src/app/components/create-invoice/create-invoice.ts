@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { ErrorMessageOnInputs } from '../error-message-on-inputs/error-message-on-inputs';
-import { CustomedValidators } from '@utils/validators/form.inputs.validator';
+import { CustomedValidators } from '@app/components/error-message-on-inputs/form.inputs.validator';
 
 
 @Component({
