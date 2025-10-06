@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '@app/services/authService';
 
 import { ErrorBanner } from '../error-banner/error-banner';
@@ -20,8 +21,11 @@ export class LoginForm
 
   form : FormGroup;
   apiErrorMessage : string | null = null;
-
-  constructor( private formBuilder : FormBuilder, private http : AuthService)
+  
+  constructor( 
+    private formBuilder : FormBuilder, 
+    private http : AuthService,
+    private router: Router )
   {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, CustomedValidators.email()]],
@@ -52,13 +56,11 @@ export class LoginForm
     (res) =>
     {
       if(res.status ==="success")
-        console.log("connection ok"); 
+        this.router.navigate(['/app']); 
       else if(res.code === 401 && res.data.includes("Invalid credentials"))
         this.apiErrorMessage = "vos identifiants sont invalides";
       else
         this.apiErrorMessage = "une error est survenue";
     });
-
-    console.log(this.form.value);
   }
 }

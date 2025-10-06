@@ -64,7 +64,5 @@ export class SignupForm
       else
         this.apiErrorMessage = "une erreur est survenue";
     });
-
-    console.log(this.form.value);
   }
 }
