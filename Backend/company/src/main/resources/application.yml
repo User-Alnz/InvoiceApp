@@ -1,0 +1,25 @@
+server:
+    port: 8090
+spring:
+  # Remove if Euraka is set
+  cloud:
+    discovery:
+      enabled: false
+  # Spring app name
+  application:
+    name: company 
+  # Spring Config Server (optional)
+  config:
+    import: optional:configserver:http://localhost:8888
+  # Database config
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5433}/company_db
+    username: ${DB_USER:user}
+    password: ${DB_PASS:userpass}
+  # Hibernate 
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
