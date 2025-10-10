@@ -4,9 +4,16 @@
 
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
+CREATE TABLE tenant (
+    id UUID PRIMARY KEY,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE company ( 
     id SERIAL PRIMARY KEY,
-    tenant_id UUID NOT NULL,    -- /!\ tenant_id from JWT in all request. ensure boundaries, data consitency and scope
+    tenant_id UUID NOT NULL REFERENCES tenant(id) -- /!\ tenant_id from JWT in all request. ensure boundaries, data consitency and scope
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
     name VARCHAR(128) NOT NULL,
     address VARCHAR(255) NOT NULL,
     postal_code VARCHAR(20) NOT NULL,
