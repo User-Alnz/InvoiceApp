@@ -86,14 +86,15 @@ public class JwtAuthFilter extends OncePerRequestFilter
         {
             // Validate JWT 
             Claims claims = validateToken(token);
-            String username = claims.getSubject();
-
-            // Build authentication token 
-            UsernamePasswordAuthenticationToken authToken =  new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
+            
+            // Build authentication token - set claims in getPrincipal()
+            UsernamePasswordAuthenticationToken authToken =  new UsernamePasswordAuthenticationToken(claims, null, Collections.emptyList());
+            
+            // Optional - attach WebAuthenticationDetailsSource to metadata like client ip adress for instance. 
             authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
             // Set authentication in context
-            SecurityContextHolder.getContext().setAuthentication(authToken);
+            SecurityContextHolder.getContext().setAuthentication(authToken);//set authToken wrapping claims
 
             // Pass next 
             filterChain.doFilter(request, response);
