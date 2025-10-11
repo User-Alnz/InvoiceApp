@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.InvoiceAppBackend.company.dto.ResponsePattern;
 
@@ -41,6 +42,14 @@ public class ErrorHandler
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST); 
     }
 
+    /*
+     * This is simpler ExceptionHandler. Simply use ex : 
+     * 
+     *  throw new EntityNotFoundException("Tenant not found");
+     *  throw new IllegalStateException("Company already exists");
+     * 
+     * Less control on http status, but simpler to use in service
+     */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ResponsePattern<String>> handleIllegalArgument(IllegalArgumentException ex) 
     {
@@ -62,7 +71,6 @@ public class ErrorHandler
             .body(new ResponsePattern<>("error", 400, ex.getMessage()));
     }
 
-    //this catch error from DaoProvider.
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ResponsePattern<String>> handleBadCredentials(BadCredentialsException ex) 
     {
@@ -75,5 +83,20 @@ public class ErrorHandler
     {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
             .body(new ResponsePattern<>("error", 500, "Unexpected error occurred"));
+    }
+
+    /*
+     * This is for costumed ResponseStatusException like :
+     * 
+     * throw new ResponseStatusException(HttpStatus.NOT_FOUND, "data not found");
+     * throw new ResponseStatusException(HttpStatus.CONFLICT, "data already exists");
+     * 
+     * Give you more controll over HttpStatus. other way to do it directly in service.
+     */
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ResponsePattern<String>> handleResponseStatus(ResponseStatusException ex) 
+    {
+        return ResponseEntity.status(ex.getStatusCode())
+            .body(new ResponsePattern<>("error", ex.getStatusCode().value(), ex.getReason()));
     }
 }
