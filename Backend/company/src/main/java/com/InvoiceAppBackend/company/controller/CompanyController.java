@@ -54,7 +54,7 @@ public class CompanyController
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<ResponsePattern<Company>> updateCompany(Authentication authentication, @PathVariable Long id, @RequestBody UpdateCompanyRequest request) 
+    public ResponseEntity<ResponsePattern<Company>> updateCompany(Authentication authentication, @PathVariable Long id, @Valid @RequestBody UpdateCompanyRequest request) 
     {
         Claims claims = (Claims) authentication.getPrincipal();
 
