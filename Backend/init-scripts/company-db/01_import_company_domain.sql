@@ -1,18 +1,17 @@
 /*
-    User - Domain
+    Company - Domain
 */
 
-CREATE TABLE user_account (
-    id SERIAL PRIMARY KEY,
-    firstname VARCHAR(64) NOT NULL,
-    lastname VARCHAR(64) NOT NULL,
-    email VARCHAR(254) NOT NULL UNIQUE,
-    hashed_password VARCHAR(255) NOT NULL
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE TABLE tenant (
+    id UUID PRIMARY KEY,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE user_company ( 
+CREATE TABLE company ( 
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL REFERENCES user_account(id)  -- FK to user_account
+    tenant_id UUID NOT NULL REFERENCES tenant(id) -- /!\ tenant_id from JWT in all request. ensure boundaries, data consitency and scope
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     name VARCHAR(128) NOT NULL,
@@ -30,9 +29,16 @@ CREATE TABLE user_company (
     website_url VARCHAR(255)
 );
 
-CREATE TABLE company_client (
+-- Optimization 
+CREATE INDEX idx_company_tenant ON company (tenant_id); -- use index to faster search by tenant_id
+CREATE INDEX idx_company_tenant_name ON company (tenant_id, name); -- use index to faster search by tenant_id & compapny name
+
+CREATE TABLE client (
     id SERIAL PRIMARY KEY,
-    company_id INT NOT NULL REFERENCES user_company(id) -- FK to the user_company
+    tenant_id UUID NOT NULL REFERENCES tenant(id) -- /!\ tenant_id from JWT in all request. ensure boundaries, data consitency and scope
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    company_id INT NOT NULL REFERENCES company(id) -- FK to the user_company
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     name VARCHAR(128) NOT NULL,
@@ -42,3 +48,6 @@ CREATE TABLE company_client (
     tel VARCHAR(20),
     email VARCHAR(254)
 );
+
+CREATE INDEX idx_client_tenant ON client (tenant_id);
+CREATE INDEX idx_client_company ON client (company_id);

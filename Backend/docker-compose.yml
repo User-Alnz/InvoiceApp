@@ -1,16 +1,16 @@
 services:
 
 # PostgreSQL database container - user Domain
-  user-db:
+  company-db:
     image: postgres:15
-    container_name: user-db
+    container_name: company-db
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: userpass
-      POSTGRES_DB: user_db
+      POSTGRES_DB: company_db
     volumes:
-      - user-db-data:/var/lib/postgresql/data #store data on host to persist
-      - ./init-scripts/user-db:/docker-entrypoint-initdb.d # import database schema
+      - company-db-data:/var/lib/postgresql/data #store data on host to persist
+      - ./init-scripts/company-db:/docker-entrypoint-initdb.d # import database schema
     ports:
       - "5433:5432"
     networks:
@@ -35,20 +35,20 @@ services:
     restart: unless-stopped
   
 # Spring Boot user-service container - user Service
-  user-service:
+  company-service:
     build:
-      context: ./user
+      context: ./company
       dockerfile: Dockerfile
-    container_name: user-service
+    container_name: company-service
     ports:
       - "8081:8090" 
     depends_on:
-      - user-db  
+      - company-db  
     networks:
       - invoice-net
     restart: unless-stopped
     environment: #override service yml config for prod env variable
-     SPRING_DATASOURCE_URL: jdbc:postgresql://user-db:5432/user_db
+     SPRING_DATASOURCE_URL: jdbc:postgresql://company-db:5432/company_db
      SPRING_DATASOURCE_USERNAME: user
      SPRING_DATASOURCE_PASSWORD: userpass
      
@@ -76,5 +76,5 @@ networks:
     driver: bridge
 # Named volume for PostgreSQL persistence
 volumes:
-  user-db-data:
+  company-db-data:
   auth-db-data:
