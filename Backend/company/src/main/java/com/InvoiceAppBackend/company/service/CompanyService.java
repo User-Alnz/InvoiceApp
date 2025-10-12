@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.InvoiceAppBackend.company.dto.CreateCompanyRequest;
+import com.InvoiceAppBackend.company.dto.UpdateCompanyRequest;
 import com.InvoiceAppBackend.company.entity.Company;
 import com.InvoiceAppBackend.company.entity.Tenant;
 import com.InvoiceAppBackend.company.repository.CompanyRepository;
 import com.InvoiceAppBackend.company.repository.TenantRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -77,5 +79,29 @@ public class CompanyService
         return repository.save(company);
     }
 
+    public Company updateCompany(UUID tenantId, long id, UpdateCompanyRequest request)
+    {
+        tenantRepository.findById(tenantId)
+        .orElseThrow(() -> new BadCredentialsException("Invalid request"));
+
+        Company company = repository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Company id not found"));
+
+        company.setName(request.getName());
+        company.setAddress(request.getAddress());
+        company.setPostalCode(request.getPostalCode());
+        company.setCountry(request.getCountry());
+        company.setTel(request.getTel());
+        company.setEmail(request.getEmail());
+        company.setLegalStatus(request.getLegalStatus());
+        company.setShareCapital(request.getShareCapital());
+        company.setSiren(request.getSiren());
+        company.setSiret(request.getSiret());
+        company.setRcs(request.getRcs());
+        company.setTvaNumber(request.getTvaNumber());
+        company.setWebsiteUrl(request.getWebsiteUrl());
+
+        return repository.save(company);
+    }
 
 }
