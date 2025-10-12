@@ -1,5 +1,7 @@
 package com.InvoiceAppBackend.company.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,12 +11,14 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Company 
 {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private long id;
 
+    @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn( name = "tenant_id", nullable = false)
     private Tenant tenant;
