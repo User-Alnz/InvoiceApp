@@ -67,7 +67,7 @@ public class CompanyService
         Company company = Company.builder()
         .name(request.getName())
         .tenant(tenant)
-        .address(request.getName())
+        .address(request.getAddress())
         .postalCode(request.getPostalCode())
         .country(request.getCountry())
         .tel(request.getTel())
