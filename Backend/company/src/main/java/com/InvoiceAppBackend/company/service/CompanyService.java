@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.InvoiceAppBackend.company.dto.CreateCompanyRequest;
+import com.InvoiceAppBackend.company.dto.UpdateCompanyRequest;
 import com.InvoiceAppBackend.company.entity.Company;
 import com.InvoiceAppBackend.company.entity.Tenant;
 import com.InvoiceAppBackend.company.repository.CompanyRepository;
 import com.InvoiceAppBackend.company.repository.TenantRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -30,6 +32,10 @@ public class CompanyService
        
        Optional<Tenant> tenant = tenantRepository.findById(tenantId);
 
+       /*
+        * This catch TenantId for first time after user register to AuthDomain and generate UUID - tenantId. 
+        * if statment can be removed later to Async Event (Kafka, RabbitMQ) to propagate/distribute tenant across Domain to avoid manual verification each time.
+       */
        if(tenant.isEmpty())
        {
             Tenant createTenant = new Tenant();
@@ -52,6 +58,7 @@ public class CompanyService
         Tenant tenant = tenantRepository.findById(tenantId)
         .orElseThrow(() -> new BadCredentialsException("Invalid request"));
 
+        //Only one company per user. This verify if company with similar UUID already exist.
         boolean doesCompanyExist = repository.findByTenantId(tenantId).isPresent();
 
         if(doesCompanyExist) 
@@ -60,7 +67,7 @@ public class CompanyService
         Company company = Company.builder()
         .name(request.getName())
         .tenant(tenant)
-        .address(request.getName())
+        .address(request.getAddress())
         .postalCode(request.getPostalCode())
         .country(request.getCountry())
         .tel(request.getTel())
@@ -77,5 +84,30 @@ public class CompanyService
         return repository.save(company);
     }
 
+    public Company updateCompany(UUID tenantId, long id, UpdateCompanyRequest request)
+    {
+        tenantRepository.findById(tenantId)
+        .orElseThrow(() -> new BadCredentialsException("Invalid request"));
+
+        //Tenant_Id => secure SQL query -> where tenant.id = tenant.getId(). This secure scoping.
+        Company company = repository.findByIdAndTenant_Id(id, tenantId)
+        .orElseThrow(() -> new EntityNotFoundException("Company id not found"));
+
+        company.setName(request.getName());
+        company.setAddress(request.getAddress());
+        company.setPostalCode(request.getPostalCode());
+        company.setCountry(request.getCountry());
+        company.setTel(request.getTel());
+        company.setEmail(request.getEmail());
+        company.setLegalStatus(request.getLegalStatus());
+        company.setShareCapital(request.getShareCapital());
+        company.setSiren(request.getSiren());
+        company.setSiret(request.getSiret());
+        company.setRcs(request.getRcs());
+        company.setTvaNumber(request.getTvaNumber());
+        company.setWebsiteUrl(request.getWebsiteUrl());
+
+        return repository.save(company);
+    }
 
 }

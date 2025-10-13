@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.InvoiceAppBackend.company.dto.CreateCompanyRequest;
 import com.InvoiceAppBackend.company.dto.ResponsePattern;
+import com.InvoiceAppBackend.company.dto.UpdateCompanyRequest;
 import com.InvoiceAppBackend.company.entity.Company;
 import com.InvoiceAppBackend.company.service.CompanyService;
 
@@ -52,4 +53,16 @@ public class CompanyController
         return ResponseEntity.ok(new ResponsePattern<>("success",200 , response));
     }
     
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponsePattern<Company>> updateCompany(Authentication authentication, @PathVariable Long id, @Valid @RequestBody UpdateCompanyRequest request) 
+    {
+        Claims claims = (Claims) authentication.getPrincipal();
+
+        //typecast to UUID. safe
+        UUID tenantId = UUID.fromString((String) claims.get("tenantId"));
+
+        Company response = service.updateCompany(tenantId, id, request);
+        
+        return ResponseEntity.ok(new ResponsePattern<>("success",200 , response));
+    }
 }

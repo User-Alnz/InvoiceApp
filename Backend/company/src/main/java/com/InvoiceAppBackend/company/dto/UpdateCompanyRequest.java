@@ -1,4 +1,4 @@
-package com.InvoiceAppBackend.user.dto.request;
+package com.InvoiceAppBackend.company.dto;
 
 import jakarta.validation.constraints.*;
 

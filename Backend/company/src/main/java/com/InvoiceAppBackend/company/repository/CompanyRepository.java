@@ -10,4 +10,5 @@ import com.InvoiceAppBackend.company.entity.Company;
 public interface CompanyRepository extends JpaRepository<Company, Long>
 {
     Optional<Company> findByTenantId(UUID tenantId);
+    Optional<Company> findByIdAndTenant_Id(Long companyId, UUID tenantId);
 }

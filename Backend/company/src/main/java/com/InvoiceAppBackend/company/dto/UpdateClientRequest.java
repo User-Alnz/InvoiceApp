@@ -1,11 +1,11 @@
-package com.InvoiceAppBackend.user.dto.request;
+package com.InvoiceAppBackend.company.dto;
 
 import jakarta.validation.constraints.*;
 
 import lombok.Data;
 
 @Data
-public class CreateClientRequest
+public class UpdateClientRequest 
 {
     @NotBlank(message = "Company name is required")
     @Size(max = 128, message = "Name must be at most 128 characters")
@@ -29,7 +29,4 @@ public class CreateClientRequest
     @Email(message = "Invalid email format")
     @Size(max = 254, message = "Email must be at most 254 characters")
     private String email;
-
-    @NotNull(message = "User ID is required")
-    private Long companyId;
 }
