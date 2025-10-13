@@ -7,6 +7,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
 import com.InvoiceAppBackend.company.dto.CreateClientRequest;
+import com.InvoiceAppBackend.company.dto.UpdateClientRequest;
 import com.InvoiceAppBackend.company.entity.Client;
 import com.InvoiceAppBackend.company.entity.Company;
 import com.InvoiceAppBackend.company.entity.Tenant;
@@ -53,6 +54,22 @@ public class ClientService
         .tel(request.getTel())
         .email(request.getEmail())
         .build();
+
+        return repository.save(client);
+    }
+
+    public Client updateClient(UUID tenantId, long companyId, long clientId, UpdateClientRequest request)
+    {
+        //check all on one querry -> WHERE id = ? AND company_id = ? AND tenant_id = ?; in client table
+        Client client = repository.findByIdAndCompany_IdAndTenant_Id(clientId, companyId, tenantId)
+        .orElseThrow(() -> new EntityNotFoundException("Client not found or invalid company. Or wrong scope."));
+
+        client.setName(request.getName());
+        client.setAddress(request.getAddress());
+        client.setPostalCode(request.getPostalCode());
+        client.setCountry(request.getCountry());
+        client.setTel(request.getTel());
+        client.setEmail(request.getEmail());
 
         return repository.save(client);
     }

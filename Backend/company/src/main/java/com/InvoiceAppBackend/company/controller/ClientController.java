@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.InvoiceAppBackend.company.dto.CreateClientRequest;
 import com.InvoiceAppBackend.company.dto.ResponsePattern;
+import com.InvoiceAppBackend.company.dto.UpdateClientRequest;
 import com.InvoiceAppBackend.company.entity.Client;
 import com.InvoiceAppBackend.company.service.ClientService;
 
@@ -61,5 +62,22 @@ public class ClientController
         return ResponseEntity.ok(new ResponsePattern<>("succes", 200, response));
     }
     
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponsePattern<Client>> updateClient(
+        Authentication authentication,
+        @PathVariable long companyId, 
+        @PathVariable long id, 
+        @Valid @RequestBody UpdateClientRequest request)
+    {
+        Claims claims = (Claims) authentication.getPrincipal();
+
+        //typecast to UUID. safe
+        UUID tenantId = UUID.fromString((String) claims.get("tenantId"));
+
+        Client response = service.updateClient(tenantId, companyId, id, request);
+
+        return ResponseEntity.ok(new ResponsePattern<>("success", 200, response));
+    }
+
 
 }
