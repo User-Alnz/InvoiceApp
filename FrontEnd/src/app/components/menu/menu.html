@@ -2,7 +2,7 @@
 
         @for(item of buttons; track item.label)
         {
-            <button type="button">
+            <button type="button" [routerLink]="[item.route]" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <img src={{item.icon}} alt="icon pour acceder au menu {{item.label}}">
                 {{item.label}}
             </button>
