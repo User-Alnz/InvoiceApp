@@ -1,0 +1,149 @@
+.informationContainer
+{ 
+    color: #475569;
+    padding: 50px 30px;
+    display: flex;
+    gap: 25px;
+    flex-direction: column;
+}
+
+/*global CSS rules of sytles*/
+.informationContainer input
+{
+    min-height: 30px;
+}
+/*global CSS rules of sytles*/
+
+.card
+{
+    color: #475569;
+    font-weight: 600;
+    background-color:  white;
+    border-radius:  4px;
+    padding: 24px;
+
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.informationCard
+{
+    display: flex;
+    justify-content: space-between;
+    gap : 10px;
+    padding: 40px;
+}
+.informationCard > div:first-child 
+{
+    display: flex;
+    gap: 20px;
+}
+.informationCard h2
+{
+    padding-bottom: 5px;
+}
+.informationCard
+{
+    font-weight: 300;
+}
+
+
+.wrapUserIcon
+{
+    display: flex;
+    background: #0596694d;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    justify-content: center;
+}
+.userIcon 
+{
+    align-self: center;
+    width: 50px;
+    height: 50px;
+    background-color: #059669; /* behaves like 'fill' */
+    mask: url('/person.svg') no-repeat center;
+    mask-size: contain;
+    -webkit-mask: url('/person.svg') no-repeat center;
+    -webkit-mask-size: contain;
+    display: inline-block;
+}
+
+.informationCardButton
+{
+    display: flex;
+    gap: 10px;
+    align-self: center;
+    font-weight: 600;
+}
+.informationCardButton img
+{
+    width: 20px;
+}
+
+
+.userDetailsCard
+{
+    display: flex;
+    flex-direction: column;
+    gap : 20px;
+}
+.userDetailsCard > div:first-child
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+} 
+.userDetailsCard div:nth-of-type(2)
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.userDetailsCard img
+{
+    width: 30px;
+}
+.userDetailsCard label
+{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.companyCard
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.companyCard div
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.companyCard > div:first-child
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.companyCard label
+{
+    display: flex;
+    flex-direction: column;
+    font-weight: 300;
+    gap: 3px;
+}
+
+.wrapUserInfoButton
+{
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
