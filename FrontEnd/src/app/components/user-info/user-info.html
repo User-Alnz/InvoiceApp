@@ -14,7 +14,13 @@
             </div>
         </div>
 
-        <button class="informationCardButton btn"><img src="/edit.png" alt="">Modifier</button>
+        <button class="informationCardButton" 
+            (click)="updateAllowed()"
+            [ngClass]="option === 'Modifier' ? 'btn' : 'btn btn-warn'">
+                <img src="/edit.png" alt="edit icon">
+            {{option}}
+        </button>
+
     </div>
 
     <div class="userDetailsCard card">
@@ -41,7 +47,7 @@
 
     </div>
 
-    <form action="" class="companyCard card">
+    <form class="companyCard card" [class.inputNotAllowed]="!isAllowed" [formGroup]="form" (ngSubmit)="onSubmit()">
 
         <div>
             <img src="/company.png" alt="">
@@ -53,19 +59,19 @@
         <div>
             <label>
                 Nom d'entreprise
-                <input type="text">
+                <input type="text" formControlName="name" name="companyName" placeholder="SolutionTech Ltd">
             </label>
             <label>
                 Telephone
-                <input type="text">
+                <input type="text" formControlName="tel" name="telephone" placeholder="04 78 00 01 34">
             </label>
             <label>
                 Entreprise Email
-                <input type="text">
+                <input type="text" formControlName="email" name="companyEmail" placeholder="johnDoe@SolutionTech.com">
             </label>
             <label>
                 Site internet 
-                <input type="text">
+                <input type="text" formControlName="websiteUrl" name="website" placeholder="www.SolutionTech.com">
             </label>
         </div>
 
@@ -73,15 +79,15 @@
         <div>
             <label>
                 Adresse
-                <input type="text">
+                <input type="text" formControlName="address" name="address" placeholder="3 Rue Geoffroy l'Angevin">
             </label>
             <label>
                 Code Postal
-                <input type="text">
+                <input type="text" formControlName="postalCode" name="postalCode" placeholder="75004">
             </label>
             <label>
                 Pays
-                <input type="text">
+                <input type="text" formControlName="country" name="country" placeholder="France">
             </label>
         </div>
 
@@ -89,35 +95,38 @@
         <div>
             <label>
                 Statut
-                <input type="text">
+                <input type="text" formControlName="legalStatus" name="legalStatus" placeholder="S.A.S">
             </label>
             <label>
                 Capital
-                <input type="text">
+                <input type="text" formControlName="shareCapital" name="shareCapital" placeholder="10 000">
             </label>
             <label>
                 SIREN
-                <input type="text">
+                <input type="text" formControlName="siren" name="siren" placeholder="362 521 879 00034">
             </label>
             <label>
                 SIRET
-                <input type="text">
+                <input type="text" formControlName="siret" name="siret" placeholder="784 671 695 00103">
             </label>
             <label>
                 RCS
-                <input type="text">
+                <input type="text" formControlName="legalStatus" name="legalStatus" placeholder="RCS PARIS B 517 403 572">
             </label>
             <label>
                 TVA
-                <input type="text">
+                <input type="text" formControlName="legalStatus" name="legalStatus" placeholder="FR 32 123456789">
             </label>
         </div>
 
-    </form>
+        @if(isAllowed === true)
+        {
+            <div class="wrapUserInfoButton">
+                <button class="btn-noBg btn" type="button" (click)="updateAllowed()">Annuler</button>
+                <button class="btn"  type="submit" >Sauvegarder</button>
+            </div>
+        }
 
-    <div class="wrapUserInfoButton">
-        <button class="btn-noBg btn">Annuler</button>
-        <button class="btn ">Sauvegarder</button>
-    </div>
+    </form>
 
 </section>

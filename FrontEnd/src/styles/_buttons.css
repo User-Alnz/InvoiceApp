@@ -31,6 +31,15 @@
   background: transparent;
   color : #475569;
 }
+
+.btn-warn
+{
+  border-width: 1px;
+  border: 1px solid #fb2c36;
+  background: #fb2c36;
+  color : #f1f5f9;
+}
+
 /*Button logic goes below :*/
 
 .btn-secondary:focus,
