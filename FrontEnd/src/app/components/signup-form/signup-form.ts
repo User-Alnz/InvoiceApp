@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '@app/services/authService';
+import { AuthService } from '@app/services/Auth/authService';
 
 import { ErrorBanner } from '../error-banner/error-banner';
 import { CustomedValidators } from '@app/components/error-message-on-inputs/form.inputs.validator';
 import { ErrorMessageOnInputs } from "../error-message-on-inputs/error-message-on-inputs";
-import { registerRequest } from '@app/services/auth.models';
+import { registerRequest } from '@app/services/Auth/auth.models';
 
 @Component({
   selector: 'app-signup-form',
@@ -19,7 +19,7 @@ export class SignupForm
   form : FormGroup;
   apiErrorMessage : string | null = null;
 
-  constructor( private formBuilder : FormBuilder, private http : AuthService )
+  constructor( private formBuilder : FormBuilder, private authService : AuthService )
   {
     this.form = this.formBuilder.group({
       firstName : ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
@@ -54,7 +54,7 @@ export class SignupForm
     this.apiErrorMessage = null;
     const request : registerRequest = this.form.value;
 
-    this.http.register(request).subscribe(
+    this.authService.register(request).subscribe(
     (res) => 
     {
       if(res.status ==="success")

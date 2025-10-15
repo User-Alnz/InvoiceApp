@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '@app/services/authService';
+import { AuthService } from '@app/services/Auth/authService';
 
 import { ErrorBanner } from '../error-banner/error-banner';
 import { ErrorMessageOnInputs } from '../error-message-on-inputs/error-message-on-inputs';
 import { CustomedValidators } from '@app/components/error-message-on-inputs/form.inputs.validator';
-import { loginRequest } from '@app/services/auth.models';
+import { loginRequest } from '@app/services/Auth/auth.models';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class LoginForm
   
   constructor( 
     private formBuilder : FormBuilder, 
-    private http : AuthService,
+    private authService : AuthService,
     private router: Router )
   {
     this.form = this.formBuilder.group({
@@ -52,7 +52,7 @@ export class LoginForm
     this.apiErrorMessage = null;
     const request : loginRequest = this.form.value;
 
-    this.http.login(request).subscribe(
+    this.authService.login(request).subscribe(
     (res) =>
     {
       if(res.status ==="success")
