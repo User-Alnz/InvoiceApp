@@ -23,110 +23,109 @@
 
     </div>
 
-    <div class="userDetailsCard card">
+    @if(hasACompany === false)
+    {
+        <div class="noCompanyCreatedCard card">
 
-        <div>
-            <img src="/person.png" alt="user icon">
-            <h3>Information personnel</h3>
-        </div>
-
-        <div>
-            <label>
-                Prenom
-                <input type="text">
-            </label>
-            <label>
-                Nom
-                <input type="text">
-            </label>
-            <label>
-                Email
-                <input type="text">
-            </label>
-        </div>
-
-    </div>
-
-    <form class="companyCard card" [class.inputNotAllowed]="!isAllowed" [formGroup]="form" (ngSubmit)="onSubmit()">
-
-        <div>
-            <img src="/company.png" alt="">
-            <h3>Mon entreprise</h3>
-        </div>
-        
-        
-        <h5>INFORMATION BASIQUE</h5>
-        <div>
-            <label>
-                Nom d'entreprise
-                <input type="text" formControlName="name" name="companyName" placeholder="SolutionTech Ltd">
-            </label>
-            <label>
-                Telephone
-                <input type="text" formControlName="tel" name="telephone" placeholder="04 78 00 01 34">
-            </label>
-            <label>
-                Entreprise Email
-                <input type="text" formControlName="email" name="companyEmail" placeholder="johnDoe@SolutionTech.com">
-            </label>
-            <label>
-                Site internet 
-                <input type="text" formControlName="websiteUrl" name="website" placeholder="www.SolutionTech.com">
-            </label>
-        </div>
-
-        <h5>ADRESSSE</h5>
-        <div>
-            <label>
-                Adresse
-                <input type="text" formControlName="address" name="address" placeholder="3 Rue Geoffroy l'Angevin">
-            </label>
-            <label>
-                Code Postal
-                <input type="text" formControlName="postalCode" name="postalCode" placeholder="75004">
-            </label>
-            <label>
-                Pays
-                <input type="text" formControlName="country" name="country" placeholder="France">
-            </label>
-        </div>
-
-        <h5>INFORMATION LEGALES</h5>
-        <div>
-            <label>
-                Statut
-                <input type="text" formControlName="legalStatus" name="legalStatus" placeholder="S.A.S">
-            </label>
-            <label>
-                Capital
-                <input type="text" formControlName="shareCapital" name="shareCapital" placeholder="10 000">
-            </label>
-            <label>
-                SIREN
-                <input type="text" formControlName="siren" name="siren" placeholder="362 521 879 00034">
-            </label>
-            <label>
-                SIRET
-                <input type="text" formControlName="siret" name="siret" placeholder="784 671 695 00103">
-            </label>
-            <label>
-                RCS
-                <input type="text" formControlName="legalStatus" name="legalStatus" placeholder="RCS PARIS B 517 403 572">
-            </label>
-            <label>
-                TVA
-                <input type="text" formControlName="legalStatus" name="legalStatus" placeholder="FR 32 123456789">
-            </label>
-        </div>
-
-        @if(isAllowed === true)
-        {
-            <div class="wrapUserInfoButton">
-                <button class="btn-noBg btn" type="button" (click)="updateAllowed()">Annuler</button>
-                <button class="btn"  type="submit" >Sauvegarder</button>
+            <div class="wrapComapnyIcon">
+                <span class="companyIcon"></span>
             </div>
-        }
 
-    </form>
+            <h2>Aucune entreprise pour l'instant</h2>
+            
+            <div>
+                <p>Commencez par créer votre premier profil d'entreprise.</p>
+                <p>La création d'entreprise est limitée à une entreprise par utilisateur</p>
+            </div>
+
+            <button class="btn" (click)="createFirstCompany()">Créez votre première entreprise</button>
+
+        </div>
+    }
+
+    @if(hasACompany === true)
+    {
+        <form class="companyCard card" [class.inputNotAllowed]="!isAllowed" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <div>
+                <img src="/company.png" alt="">
+                <h3>Mon entreprise</h3>
+            </div>
+            
+            
+            <h5>INFORMATION BASIQUE</h5>
+            <div>
+                <label>
+                    Nom d'entreprise
+                    <input type="text" formControlName="name" name="companyName" placeholder="SolutionTech Ltd">
+                </label>
+                <label>
+                    Telephone
+                    <input type="text" formControlName="tel" name="telephone" placeholder="04 78 00 01 34">
+                </label>
+                <label>
+                    Entreprise Email
+                    <input type="text" formControlName="email" name="companyEmail" placeholder="johnDoe@SolutionTech.com">
+                </label>
+                <label>
+                    Site internet 
+                    <input type="text" formControlName="websiteUrl" name="website" placeholder="www.SolutionTech.com">
+                </label>
+            </div>
+
+            <h5>ADRESSSE</h5>
+            <div>
+                <label>
+                    Adresse
+                    <input type="text" formControlName="address" name="address" placeholder="3 Rue Geoffroy l'Angevin">
+                </label>
+                <label>
+                    Code Postal
+                    <input type="text" formControlName="postalCode" name="postalCode" placeholder="75004">
+                </label>
+                <label>
+                    Pays
+                    <input type="text" formControlName="country" name="country" placeholder="France">
+                </label>
+            </div>
+
+            <h5>INFORMATION LEGALES</h5>
+            <div>
+                <label>
+                    Statut
+                    <input type="text" formControlName="legalStatus" name="legalStatus" placeholder="S.A.S">
+                </label>
+                <label>
+                    Capital
+                    <input type="text" formControlName="shareCapital" name="shareCapital" placeholder="10 000">
+                </label>
+                <label>
+                    SIREN
+                    <input type="text" formControlName="siren" name="siren" placeholder="362 521 879 00034">
+                </label>
+                <label>
+                    SIRET
+                    <input type="text" formControlName="siret" name="siret" placeholder="784 671 695 00103">
+                </label>
+                <label>
+                    RCS
+                    <input type="text" formControlName="legalStatus" name="legalStatus" placeholder="RCS PARIS B 517 403 572">
+                </label>
+                <label>
+                    TVA
+                    <input type="text" formControlName="legalStatus" name="legalStatus" placeholder="FR 32 123456789">
+                </label>
+            </div>
+
+            @if(isAllowed === true)
+            {
+                <div class="wrapUserInfoButton">
+                    <button class="btn-noBg btn" type="button" (click)="updateAllowed()">Annuler</button>
+                    <button class="btn"  type="submit" >Sauvegarder</button>
+                </div>
+            }
+
+        </form>
+    }
 
 </section>
