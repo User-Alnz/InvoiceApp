@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup  } from '@angular/forms';
 import { CompanyService } from '@app/services/company/companyService';
+import { Company } from '@app/services/company/company.models';
 
 @Component({
   selector: 'app-user-info',
@@ -14,6 +15,8 @@ export class UserInfo implements OnInit
   option : "Modifier" | "Cancel" = 'Modifier';
   isAllowed : boolean = false; 
   hasACompany: boolean = false;
+  needToCreateCompany: boolean = false;
+  companyId?: number; //lives only in memory no caching. Only during component life cycle.
   form : FormGroup;
 
 
@@ -52,6 +55,7 @@ export class UserInfo implements OnInit
     {
       if (res.status === 'success')
       {
+        this.companyId = res.data.id;
         this.form.patchValue(res.data);
         this.hasACompany = true; 
       }
@@ -62,20 +66,18 @@ export class UserInfo implements OnInit
     });
   }
   
-  onSubmit()
-  {
-    console.log(this.form.value);
-  }
-
-  createFirstCompany() :void
+  //this is used on button
+  createFirstCompany(): void
   {
     this.hasACompany = true;
+    this.needToCreateCompany = true;
     this.option = "Cancel";
     this.isAllowed = true;
     this.form.enable();
   }
 
-  updateAllowed() : void
+  //this is used on button
+  updateAllowed(): void
   {
     if(!this.isAllowed && this.hasACompany)
     {
@@ -89,6 +91,46 @@ export class UserInfo implements OnInit
     }
       
     this.isAllowed = !this.isAllowed;
+  }
+
+  //this handle automatically logic PUT | POST depending user context  
+  onSubmit(): void
+  {
+    const company: Company = this.form.value;
+
+    //security convert input string safely to number
+    company.shareCapital = Number(
+      String(company.shareCapital).replace(/\s+/g, '').replace(',', '.')
+    );
+
+    //Create a company
+    if(this.needToCreateCompany)
+    {
+      this.companyService.createCompany(company).subscribe(
+        (res) =>
+        {
+          this.form.patchValue(res.data);
+          this.needToCreateCompany = false;
+          this.isAllowed = false;
+          this.option = 'Modifier';
+          this.form.disable();
+        }
+      );
+    }
+
+    //Update a company
+    if(!this.needToCreateCompany && this.companyId)
+    {
+      this.companyService.updateCompany(this.companyId, company).subscribe(
+        (res) =>
+        {
+          this.form.patchValue(res.data);
+          this.isAllowed = false;
+          this.option = 'Modifier';
+          this.form.disable();
+        }
+      );
+    }
   }
 
 }

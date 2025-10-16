@@ -19,6 +19,22 @@ export class CompanyService
   {
     return this.http.get<ApiResponse<Company>>(
       `${this.url}`,
-      { withCredentials: true }) //send cookies in JWT in.
+      { withCredentials: true }); //send cookies in JWT in.
+  }
+
+  updateCompany(companyId:number, company : Company) : Observable<ApiResponse<Company>>
+  {
+    return this.http.put<ApiResponse<Company>>(
+      `${this.url}/${companyId}`,
+      company,
+      { withCredentials: true });
+  }
+
+  createCompany(company : Company) : Observable<ApiResponse<Company>>
+  {
+    return this.http.post<ApiResponse<Company>>(
+        `${this.url}`,
+        company,
+        { withCredentials: true });
   }
 }

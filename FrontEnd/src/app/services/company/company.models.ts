@@ -8,6 +8,7 @@ export interface ApiResponse<T>
 
 export interface Company 
 {
+  id:number;
   name: string;
   address: string;
   postalCode: string;
@@ -15,7 +16,7 @@ export interface Company
   tel: string;
   email: string;
   legalStatus: string;
-  shareCapital: string;
+  shareCapital: number;
   siren: string;
   siret: string;
   rcs: string;
