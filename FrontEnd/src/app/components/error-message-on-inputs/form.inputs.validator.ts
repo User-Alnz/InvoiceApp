@@ -48,7 +48,7 @@ export class CustomedValidators
             if(regex.test(control.value) === true)
             return null;
             else
-            return { email: true };
+            return { postalCode: true };
         };
     }
 
