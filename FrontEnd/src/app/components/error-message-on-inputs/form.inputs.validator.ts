@@ -48,7 +48,7 @@ export class CustomedValidators
             if(regex.test(control.value) === true)
             return null;
             else
-            return { email: true };
+            return { postalCode: true };
         };
     }
 
@@ -66,6 +66,88 @@ export class CustomedValidators
             else
             return { invoiceNumber: true };
         };
+    }
+
+    static shareCapital() : ValidatorFn
+    {
+        const regex = /^\d{1,3}(?:[ \u00A0]?\d{3})*(?:[.,]\d{1,2})?$/; //accept decimal and blank space
+
+        return (control: AbstractControl): ValidationErrors | null => 
+        {
+            if (!control.value) 
+            return null;
+
+            if(regex.test(control.value) === true)
+            return null;
+            else
+            return { shareCapital: true };
+        };
+    }
+
+    static siren() : ValidatorFn
+    {
+        const regex = /^\d{3}(?:[ \u00A0]?\d{3}){2}$/;
+
+        return (control: AbstractControl): ValidationErrors | null => 
+        {
+            if (!control.value) 
+            return null;
+
+            if(regex.test(control.value) === true)
+            return null;
+            else
+            return { siren: true };
+        };
+    }
+
+    static siret() : ValidatorFn
+    {
+        const regex = /^\d{3}(?:[ \u00A0]?\d{3}){2}[ \u00A0]?\d{5}$/;
+
+        return (control: AbstractControl): ValidationErrors | null => 
+        {
+            if (!control.value) 
+            return null;
+
+            if(regex.test(control.value) === true)
+            return null;
+            else
+            return { siret: true };
+        };
+    }
+
+    static rcs() : ValidatorFn
+    {
+        const regex = /^RCS\s+[A-Za-zÀ-ÿ' -]+\s+\d{3}(?:[ \u00A0]?\d{3}){2}$/;
+
+        return (control: AbstractControl): ValidationErrors | null => 
+        {
+            if (!control.value) 
+            return null;
+
+            if(regex.test(control.value) === true)
+            return null;
+            else
+            return { rcs: true };
+        };
+
+    }
+
+    static tva(): ValidatorFn
+    {
+        const regex =/^FR\s?[0-9A-Z]{2}\s?\d{3}(?:[ \u00A0]?\d{3}){2}$/;
+
+        return (control: AbstractControl): ValidationErrors | null => 
+        {
+            if (!control.value) 
+            return null;
+
+            if(regex.test(control.value) === true)
+            return null;
+            else
+            return { tva: true };
+        };
+
     }
 
     static password() : ValidatorFn

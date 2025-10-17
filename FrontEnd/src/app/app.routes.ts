@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { CreateInvoice } from './components/create-invoice/create-invoice';
+import { UserInfo } from './components/user-info/user-info';
 import { AuthPage } from "./pages/auth-page/auth-page";
 import { MainLayout } from './layout/main-layout';
 import { authGuard } from './guards/auth-guard';
@@ -24,6 +25,11 @@ export const routes: Routes = [
                 path: 'invoice',
                 component: CreateInvoice,
                 title: 'Create Invoice'
+            },
+            {
+                path: 'info',
+                component: UserInfo,
+                title: 'user info'
             },
             { //this is default page when app load
                 path: "",               

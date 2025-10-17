@@ -24,10 +24,34 @@
   color: #f1f5f9;
 }
 
+.btn-noBg
+{
+  border-width: 1px;
+  border: 1px solid #475569;
+  background: transparent;
+  color : #475569;
+}
+
+.btn-warn
+{
+  border-width: 1px;
+  border: 1px solid #fb2c36;
+  background: #fb2c36;
+  color : #f1f5f9;
+}
+
 /*Button logic goes below :*/
 
 .btn-secondary:focus,
 .btn-secondary:active
 {
   background: #059669;
+}
+
+.btn-noBg:hover,
+.btn-noBg:focus
+{
+  background: #059669;
+  color: white; 
+  border-color: #059669; /* optional, to match background */
 }

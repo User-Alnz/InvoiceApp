@@ -16,4 +16,5 @@
 .appFeature {
   flex: 1;      
   overflow-y: auto; /*scroll if content too tall*/
+  background: #F1F5F9;
 }

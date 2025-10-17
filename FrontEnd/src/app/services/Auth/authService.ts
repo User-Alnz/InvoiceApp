@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 import { ApiResponse, registerRequest, loginRequest} from './auth.models';
-import { environment } from '../../environments/environment.development';
+import { environment } from 'environments/environment.development';
 
 @Injectable({
   providedIn: 'root' //make it singleton class available everywhere.
