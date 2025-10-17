@@ -6,6 +6,7 @@ import { Company } from '@app/services/company/company.models';
 
 import { ErrorMessageOnInputs } from '../error-message-on-inputs/error-message-on-inputs';
 import { CustomedValidators } from '@app/components/error-message-on-inputs/form.inputs.validator';
+import { formatCompanyRequest, formatCompanyResponse} from './cleanUserInputs';
 
 @Component({
   selector: 'app-user-info',
@@ -31,9 +32,9 @@ export class UserInfo implements OnInit
 
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(128)]],
       address: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
-      postalCode: ['', [Validators.required, Validators.minLength(5), CustomedValidators.postalCode()]],
+      postalCode: ['', [Validators.required, CustomedValidators.postalCode()]],
       country: ['', [Validators.required, Validators.maxLength(64)]],
-      tel: ['', [Validators.maxLength(20)]],
+      tel: ['', [Validators.maxLength(20), CustomedValidators.phone()]],
       email: ['', [Validators.email, Validators.maxLength(254)]],
       legalStatus: ['', [Validators.required, Validators.maxLength(64)]],
       shareCapital: ['', [Validators.required, CustomedValidators.shareCapital()]],
@@ -62,6 +63,7 @@ export class UserInfo implements OnInit
     {
       if (res.status === 'success')
       {
+        formatCompanyResponse(res.data);
         this.companyId = res.data.id;
         this.form.patchValue(res.data);
         this.hasACompany = true; 
@@ -103,12 +105,10 @@ export class UserInfo implements OnInit
   //this handle automatically logic PUT | POST depending user context  
   onSubmit(): void
   {
-    const company: Company = this.form.value;
+    let company: Company = this.form.value;
 
-    //security convert input string safely to number
-    company.shareCapital = Number(
-      String(company.shareCapital).replace(/\s+/g, '').replace(',', '.')
-    );
+    //Clean extra space and correct format on -> shareCapital, siren, siret.
+    formatCompanyRequest(company);
 
     //Create a company
     if(this.needToCreateCompany)
@@ -116,6 +116,7 @@ export class UserInfo implements OnInit
       this.companyService.createCompany(company).subscribe(
         (res) =>
         {
+          formatCompanyResponse(res.data);
           this.form.patchValue(res.data);
           this.needToCreateCompany = false;
           this.isAllowed = false;
@@ -131,6 +132,7 @@ export class UserInfo implements OnInit
       this.companyService.updateCompany(this.companyId, company).subscribe(
         (res) =>
         {
+          formatCompanyResponse(res.data);
           this.form.patchValue(res.data);
           this.isAllowed = false;
           this.option = 'Modifier';
