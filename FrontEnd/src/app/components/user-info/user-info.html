@@ -57,22 +57,22 @@
             <div>
                 <label>
                     Nom d'entreprise
-                    <input type="text" formControlName="name" name="companyName" placeholder="SolutionTech Ltd">
+                    <input type="text" formControlName="name" name="companyName" [placeholder]="needToCreateCompany ?'SolutionTech Ltd' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['name']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     Telephone
-                    <input type="text" formControlName="tel" name="telephone" placeholder="04 78 00 01 34">
+                    <input type="text" formControlName="tel" name="telephone" [placeholder]="needToCreateCompany ? '04 81 00 89 01' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['tel']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     Entreprise Email
-                    <input type="text" formControlName="email" name="companyEmail" placeholder="johnDoe@SolutionTech.com">
+                    <input type="text" formControlName="email" name="companyEmail" [placeholder]="needToCreateCompany ? 'johnDoe@SolutionTech.com' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['email']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     Site internet 
-                    <input type="text" formControlName="websiteUrl" name="website" placeholder="www.SolutionTech.com">
+                    <input type="text" formControlName="websiteUrl" name="website" [placeholder]="needToCreateCompany ? 'www.SolutionTech.com' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['websiteUrl']"></app-error-message-on-inputs>
                 </label>
             </div>
@@ -81,17 +81,17 @@
             <div>
                 <label>
                     Adresse
-                    <input type="text" formControlName="address" name="address" placeholder="3 Rue Geoffroy l'Angevin">
+                    <input type="text" formControlName="address" name="address"  [placeholder]="needToCreateCompany ? '3 Rue Geoffroy l\'Angevin' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['address']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     Code Postal
-                    <input type="text" formControlName="postalCode" name="postalCode" placeholder="75004">
+                    <input type="text" formControlName="postalCode" name="postalCode" [placeholder]="needToCreateCompany ? '75004' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['postalCode']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     Pays
-                    <input type="text" formControlName="country" name="country" placeholder="France">
+                    <input type="text" formControlName="country" name="country" [placeholder]="needToCreateCompany ? 'France' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['country']"></app-error-message-on-inputs>
                 </label>
             </div>
@@ -100,32 +100,32 @@
             <div>
                 <label>
                     Statut
-                    <input type="text" formControlName="legalStatus" name="legalStatus" placeholder="S.A.S">
+                    <input type="text" formControlName="legalStatus" name="legalStatus" [placeholder]="needToCreateCompany ? 'S.A.S' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['legalStatus']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     Capital
-                    <input type="text" formControlName="shareCapital" name="shareCapital" placeholder="10 000">
+                    <input type="text" formControlName="shareCapital" name="shareCapital" [placeholder]="needToCreateCompany ? '10 000' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['shareCapital']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     SIREN
-                    <input type="text" formControlName="siren" name="siren" placeholder="362 521 879 00034">
+                    <input type="text" formControlName="siren" name="siren" [placeholder]="needToCreateCompany ? '356 909 430' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['siren']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     SIRET
-                    <input type="text" formControlName="siret" name="siret" placeholder="784 671 695 00103">
+                    <input type="text" formControlName="siret" name="siret" [placeholder]="needToCreateCompany ? '758 909 430 89000' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['siret']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     RCS
-                    <input type="text" formControlName="rcs" name="rcs" placeholder="RCS PARIS B 517 403 572">
+                    <input type="text" formControlName="rcs" name="rcs" [placeholder]="needToCreateCompany ? 'RCS PARIS B 356 909 430' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['rcs']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     TVA
-                    <input type="text" formControlName="tvaNumber" name="tvaNumber" placeholder="FR 32 123456789">
+                    <input type="text" formControlName="tvaNumber" name="tvaNumber" [placeholder]="needToCreateCompany ? 'FR 33 356 909 430' : ''">
                     <app-error-message-on-inputs [control]="formFromEntries['tvaNumber']"></app-error-message-on-inputs>
                 </label>
             </div>
