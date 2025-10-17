@@ -58,18 +58,22 @@
                 <label>
                     Nom d'entreprise
                     <input type="text" formControlName="name" name="companyName" placeholder="SolutionTech Ltd">
+                    <app-error-message-on-inputs [control]="formFromEntries['name']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     Telephone
                     <input type="text" formControlName="tel" name="telephone" placeholder="04 78 00 01 34">
+                    <app-error-message-on-inputs [control]="formFromEntries['tel']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     Entreprise Email
                     <input type="text" formControlName="email" name="companyEmail" placeholder="johnDoe@SolutionTech.com">
+                    <app-error-message-on-inputs [control]="formFromEntries['email']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     Site internet 
                     <input type="text" formControlName="websiteUrl" name="website" placeholder="www.SolutionTech.com">
+                    <app-error-message-on-inputs [control]="formFromEntries['websiteUrl']"></app-error-message-on-inputs>
                 </label>
             </div>
 
@@ -78,14 +82,17 @@
                 <label>
                     Adresse
                     <input type="text" formControlName="address" name="address" placeholder="3 Rue Geoffroy l'Angevin">
+                    <app-error-message-on-inputs [control]="formFromEntries['address']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     Code Postal
                     <input type="text" formControlName="postalCode" name="postalCode" placeholder="75004">
+                    <app-error-message-on-inputs [control]="formFromEntries['postalCode']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     Pays
                     <input type="text" formControlName="country" name="country" placeholder="France">
+                    <app-error-message-on-inputs [control]="formFromEntries['country']"></app-error-message-on-inputs>
                 </label>
             </div>
 
@@ -94,26 +101,32 @@
                 <label>
                     Statut
                     <input type="text" formControlName="legalStatus" name="legalStatus" placeholder="S.A.S">
+                    <app-error-message-on-inputs [control]="formFromEntries['legalStatus']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     Capital
                     <input type="text" formControlName="shareCapital" name="shareCapital" placeholder="10 000">
+                    <app-error-message-on-inputs [control]="formFromEntries['shareCapital']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     SIREN
                     <input type="text" formControlName="siren" name="siren" placeholder="362 521 879 00034">
+                    <app-error-message-on-inputs [control]="formFromEntries['siren']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     SIRET
                     <input type="text" formControlName="siret" name="siret" placeholder="784 671 695 00103">
+                    <app-error-message-on-inputs [control]="formFromEntries['siret']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     RCS
                     <input type="text" formControlName="rcs" name="rcs" placeholder="RCS PARIS B 517 403 572">
+                    <app-error-message-on-inputs [control]="formFromEntries['rcs']"></app-error-message-on-inputs>
                 </label>
                 <label>
                     TVA
                     <input type="text" formControlName="tvaNumber" name="tvaNumber" placeholder="FR 32 123456789">
+                    <app-error-message-on-inputs [control]="formFromEntries['tvaNumber']"></app-error-message-on-inputs>
                 </label>
             </div>
 

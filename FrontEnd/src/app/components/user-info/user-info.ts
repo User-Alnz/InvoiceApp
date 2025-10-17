@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup  } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from '@app/services/company/companyService';
 import { Company } from '@app/services/company/company.models';
 
+import { ErrorMessageOnInputs } from '../error-message-on-inputs/error-message-on-inputs';
+import { CustomedValidators } from '@app/components/error-message-on-inputs/form.inputs.validator';
+
 @Component({
   selector: 'app-user-info',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, ErrorMessageOnInputs],
   templateUrl: './user-info.html',
   styleUrl: './user-info.css'
 })
@@ -26,25 +29,29 @@ export class UserInfo implements OnInit
   {
     this.form = this.formBuilder.group({
 
-      name: [''],
-      address: [''],
-      postalCode: [''],
-      country: [''],
-      tel: [''],
-      email: [''],
-      legalStatus: [''],
-      shareCapital: [''],
-      siren: [''],
-      siret: [''],
-      rcs: [''],
-      tvaNumber: [''],
-      websiteUrl: ['']
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(128)]],
+      address: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
+      postalCode: ['', [Validators.required, Validators.minLength(5), CustomedValidators.postalCode()]],
+      country: ['', [Validators.required, Validators.maxLength(64)]],
+      tel: ['', [Validators.maxLength(20)]],
+      email: ['', [Validators.email, Validators.maxLength(254)]],
+      legalStatus: ['', [Validators.required, Validators.maxLength(64)]],
+      shareCapital: ['', [Validators.required, CustomedValidators.shareCapital()]],
+      siren: ['',[Validators.required, CustomedValidators.siren()]],
+      siret: ['',[Validators.required, CustomedValidators.siret()]],
+      rcs: ['',[Validators.required, Validators.maxLength(64), CustomedValidators.rcs()]],
+      tvaNumber: ['',[Validators.required ,CustomedValidators.tva()]],
+      websiteUrl: ['', [Validators.maxLength(255)]]
 
     })
 
     this.form.disable();
   }
 
+  get formFromEntries()
+  {
+    return this.form.controls;
+  }
 
   //fetch backend on first page load
   ngOnInit(): void 
