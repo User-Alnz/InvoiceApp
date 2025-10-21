@@ -1,16 +1,24 @@
 <div class="paginationComponent">
 
-    <button class="btn paginationBtn">Next</button>
+    <button 
+        class="btn paginationBtn"
+        (click)="prevPage()"
+    >Prev</button>
 
-    <!-- simple template, will get removed by dynamic fn()-->
     <ul>
-
-        <li >1</li>
-        <li class="active">2</li> 
-        <li >3</li>
-    
+        @for(page of pages; track $index)
+        {
+            <li
+                (click)="selectPage(page)"
+                [class.active]="page === currentPage"
+                >{{page}}
+            </li>
+        }
     </ul>
 
-    <button class="btn paginationBtn">Prev</button>
+    <button 
+        class="btn paginationBtn"
+        (click)="nextPage()"
+    >Next</button>
 
 </div>
