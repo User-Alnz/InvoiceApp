@@ -16,6 +16,7 @@ export class Client implements OnInit
 
   companyId?: number;
   currentPage = 0;
+  totalPages = 0;
   clients:clientList[]=[];
 
   constructor(
@@ -27,7 +28,7 @@ export class Client implements OnInit
   {
     this.companyService.getCompany().pipe(
 
-    filter(res => res.status ==='success'),
+    filter(res => res.status ==='success' && res.code === 200),
     switchMap(
       (res) =>
       {
@@ -40,6 +41,7 @@ export class Client implements OnInit
       next: (res)=>
       {
         this.clients = res.data.content;
+        this.totalPages = res.data.totalPages;
       },
       error: (err)=>
       {
@@ -47,4 +49,37 @@ export class Client implements OnInit
       }
     });
   }
+
+  private updateListOfClients(): void
+  {
+    if(!this.companyId)
+      return;
+
+    //because account  start from 0 parameter endpoint '?page=0;'
+    const page = this.currentPage - 1;
+    
+    this.clientService.getClient(this.companyId, page)
+    .subscribe
+    ({
+
+      next:(res)=>
+      {
+        if(res.status ==='success' && res.code === 200)
+        {
+          this.clients = res.data.content;
+          this.totalPages = res.data.totalPages;
+        }
+      },
+      error: (err) => console.error('Error fetching clients:', err)
+
+    });
+
+  }
+
+  onPageChange(page: number): void 
+  {
+    this.currentPage = page;
+    this.updateListOfClients();
+  }
+
 }
