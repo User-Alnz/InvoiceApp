@@ -18,6 +18,7 @@ export class Menu {
   buttons : MenuButton[] = [
     { label: 'Créer une facture', icon: '/edit.png', route: 'invoice' },
     { label: 'Factures', icon: '/invoice.png', route: 'invoice' },
+    { label: 'Clients', icon: '/clients.png', route: 'clients' },
     { label: 'Informations', icon: '/user.png', route: 'info' },
     { label: 'Services et produits', icon: '/package.png', route: 'invoice' }
   ];
