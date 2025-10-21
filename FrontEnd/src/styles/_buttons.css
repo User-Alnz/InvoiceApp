@@ -32,6 +32,12 @@
   color : #475569;
 }
 
+.btn-transparent
+{
+  border: inherit;
+  background: transparent;
+}
+
 .btn-warn
 {
   border-width: 1px;
