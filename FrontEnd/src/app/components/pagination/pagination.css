@@ -1,0 +1,40 @@
+.paginationComponent
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+    padding: 10px;
+}
+.paginationComponent ul
+{
+    display: flex;
+    list-style: none;
+    gap:5px;
+}
+.paginationComponent li
+{
+    padding: 8px 16px;
+    cursor: pointer;
+}
+.paginationBtn
+{
+    color: #059669;
+    background: #f1f5f9;
+}
+
+
+/* CSS style over user selection*/
+
+.paginationComponent li:hover
+{
+    border-radius: 6px;
+    color: #059669;
+    background: #F1F5F9;
+}
+.paginationComponent li.active
+{
+    border-radius: 6px;
+    color: #f1f5f9;
+    background: #059669;
+}
