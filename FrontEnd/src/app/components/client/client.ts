@@ -4,7 +4,7 @@ import { CreateClient } from '../modals/create-client/create-client';
 import { CompanyService } from '@app/services/company/companyService';
 import { ClientService } from '@app/services/client/clientService';
 import { filter, switchMap } from 'rxjs';
-import { clientList } from '@app/services/client/client.model';
+import { clientList, CreateClientRequest } from '@app/services/client/client.model';
 
 @Component({
   selector: 'app-client',
@@ -18,12 +18,18 @@ export class Client implements OnInit
   companyId?: number;
   currentPage = 1;
   totalPages = 0;
-  clients:clientList[]=[];
+  clients: clientList[]=[];
+  displayModal: boolean = false;
 
   constructor(
     private companyService: CompanyService,
     private clientService : ClientService)
   {}
+  
+
+  /*
+    API call needed on fisrt page load. 
+  */
 
   ngOnInit(): void 
   {
@@ -54,6 +60,11 @@ export class Client implements OnInit
     });
   }
 
+
+  /*
+    Methods below handle API call logic
+  */
+
   private updateListOfClients(): void
   {
     if(!this.companyId)
@@ -80,10 +91,40 @@ export class Client implements OnInit
 
   }
 
+  private createNewClient( payload : CreateClientRequest ): void
+  {
+    if(!this.companyId)
+      return;
+
+    this.clientService.createClient(this.companyId, payload)
+    .subscribe
+    ({
+
+      next: (res)=> 
+      {
+        if(res.status ==='success' && res.code === 200)
+        {
+          this.displayModal = false;
+          this.updateListOfClients();
+        }
+      },
+      error: (err) => console.error('Error fetching clients:', err)
+
+    });
+  }
+
+  /*
+    Catch EmitterEvent children components
+  */
+
   onPageChange(page: number): void 
   {
     this.currentPage = page;
     this.updateListOfClients();
   }
 
+  onClientPayload(client: CreateClientRequest): void
+  {
+    this.createNewClient(client);
+  }
 }

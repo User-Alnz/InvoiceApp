@@ -3,10 +3,22 @@
     <h1>Clients</h1>
 
     <div class="clientOptions">
+
         <input class="clientSearch" type="text" placeholder="rechercher un client">
-        <button class="btn">Ajouter un client</button>
+
+        <button class="btn"
+        (click)="displayModal = true"
+        >Ajouter un client</button>
+
     </div>
-    <app-create-client></app-create-client>
+    
+    @if(displayModal === true)
+    {
+        <app-create-client
+        (clientPayload)="onClientPayload($event)"
+        (close)="displayModal = false">
+        </app-create-client>
+    }
 
     <div class="WrapClientDashboard">
 
