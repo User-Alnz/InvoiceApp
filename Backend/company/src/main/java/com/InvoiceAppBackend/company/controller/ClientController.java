@@ -42,7 +42,7 @@ public class ClientController
 
         Page<Client> response = service.getClients(tenantId, companyId ,page, maxSize);
 
-        return ResponseEntity.ok(new ResponsePattern<>("succes", 200, response));
+        return ResponseEntity.ok(new ResponsePattern<>("success", 200, response));
     }
 
     @PostMapping()
@@ -59,7 +59,7 @@ public class ClientController
 
         Client response = service.createClient(tenantId, companyId, request);
         
-        return ResponseEntity.ok(new ResponsePattern<>("succes", 200, response));
+        return ResponseEntity.ok(new ResponsePattern<>("success", 200, response));
     }
     
     @PutMapping("/{id}")
