@@ -395,6 +395,32 @@ To update client data pass `companyId` and `id` as **request parameter**.
 }
 ```
 
+### 3. Delete client
+
+**DELETE** `/api/company/{companyId}/client/{id}`
+
+To delete client  pass `companyId` and `id` as **request parameter**. 
+
+#### Success Response
+```json
+{
+    "status": "success",
+    "code": 200,
+    "data": "client deleted"
+}
+```
+
+#### Error Response (if not user company or not found)
+```json
+{
+    "status": "error",
+    "code": 404,
+    "data": "Client not found or invalid company. Or wrong scope."
+}
+```
+
+
+
 ## CompanyDomain SQL Schema
 
 

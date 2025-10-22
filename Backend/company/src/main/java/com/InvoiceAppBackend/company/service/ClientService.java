@@ -73,4 +73,14 @@ public class ClientService
 
         return repository.save(client);
     }
+
+    public String deleteClient(UUID tenantId, long companyId, long clientId)
+    {
+        Client client = repository.findByIdAndCompany_IdAndTenant_Id(clientId, companyId, tenantId)
+        .orElseThrow(() -> new EntityNotFoundException("Client not found or invalid company. Or wrong scope."));
+
+        repository.deleteByIdAndCompany_IdAndTenant_Id(client.getId(), companyId, tenantId);
+
+        return "client deleted";
+    }
 }

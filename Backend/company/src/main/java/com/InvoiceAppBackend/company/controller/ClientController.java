@@ -79,5 +79,19 @@ public class ClientController
         return ResponseEntity.ok(new ResponsePattern<>("success", 200, response));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponsePattern<String>> deleteClient(
+        Authentication authentication, 
+        @PathVariable  long companyId,
+        @PathVariable long id)
+    {
+        Claims claims = (Claims) authentication.getPrincipal();
 
+        //typecast to UUID. safe
+        UUID tenantId = UUID.fromString((String) claims.get("tenantId"));
+
+        String response = service.deleteClient(tenantId, companyId, id);
+
+        return ResponseEntity.ok(new ResponsePattern<>("success", 200, response));
+    }
 }
