@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pagination } from '../pagination/pagination';
+import { CreateClient } from '../modals/create-client/create-client';
 import { CompanyService } from '@app/services/company/companyService';
 import { ClientService } from '@app/services/client/clientService';
 import { filter, switchMap } from 'rxjs';
@@ -7,7 +8,7 @@ import { clientList } from '@app/services/client/client.model';
 
 @Component({
   selector: 'app-client',
-  imports: [Pagination],
+  imports: [Pagination, CreateClient],
   templateUrl: './client.html',
   styleUrl: './client.css'
 })
@@ -15,7 +16,7 @@ export class Client implements OnInit
 {
 
   companyId?: number;
-  currentPage = 0;
+  currentPage = 1;
   totalPages = 0;
   clients:clientList[]=[];
 
@@ -32,8 +33,11 @@ export class Client implements OnInit
     switchMap(
       (res) =>
       {
+        //because account  start from 1 parameter endpoint '?page=0;'
+        const page = this.currentPage - 1;
+
         this.companyId = res.data.id;
-        return this.clientService.getClient(this.companyId, this.currentPage);
+        return this.clientService.getClient(this.companyId, page);
       }
     )
     ).subscribe(
@@ -55,7 +59,7 @@ export class Client implements OnInit
     if(!this.companyId)
       return;
 
-    //because account  start from 0 parameter endpoint '?page=0;'
+    //because account  start from 1 parameter endpoint '?page=0;'
     const page = this.currentPage - 1;
     
     this.clientService.getClient(this.companyId, page)

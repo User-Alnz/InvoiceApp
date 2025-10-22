@@ -1,0 +1,47 @@
+.modalView
+{
+    color: #475569;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 999; 
+}
+
+.modalContainer
+{
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
+    z-index: 1000; 
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.modalContainer div
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-column: span 2;
+}
+.modalContainer label
+{
+    display: flex;
+    flex-direction: column;
+}
+.modalContainer input
+{
+    height: 30px;
+}
