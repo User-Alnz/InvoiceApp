@@ -1,3 +1,12 @@
+export interface CreateClientRequest
+{
+    name: string,
+    address: string,
+    postalCode: string,
+    country: string,
+    tel: string,
+    email: string
+}
 
 export interface ApiResponse<T>
 {
